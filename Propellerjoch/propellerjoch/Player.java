@@ -59,7 +59,7 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
 	@Override
 	public void keyPressed(int keyCode, char key) {
 		for (Toets t : toets) {
-			
+			toets.getIngedrukt();
 		}
 	}
 

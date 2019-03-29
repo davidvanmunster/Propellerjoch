@@ -8,7 +8,7 @@ public class Toets {
 		this.ingedrukteToets = ingedrukteToets;
 	}
 	
-	boolean getIngedrukt() {
+	public boolean getIngedrukt() {
 		return ingedrukt;
 	}
 	
