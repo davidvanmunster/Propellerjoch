@@ -30,11 +30,11 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
 	@Override
 	public void update() {
 		if (springen) {
+			vallen = true;
 			setDirectionSpeed(0, huidigeSpringSnelheid);
 			
 			if (getySpeed() <= 0.01) {
 				springen = false;
-				vallen = true;
 				huidigeSpringSnelheid = springSnelheid;
 			}
 		}

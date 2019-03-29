@@ -27,8 +27,8 @@ public class Propellerjoch extends GameEngine {
 
 	@Override
 	public void setupGame() {
-		int worldWidth = 800;
-		int worldHeight = 600;
+		int worldWidth = 3000;
+		int worldHeight = 800;
 		
 		createObjects();
 		initializeTileMap();
@@ -37,7 +37,7 @@ public class Propellerjoch extends GameEngine {
 		
 		setView(view);
 		size(worldWidth, worldHeight);
-		createViewWithViewport(worldWidth, worldHeight, 1200, 800, 1.5f);
+		createViewWithViewport(worldWidth, worldHeight, 1200, 800, 1.3f);
 	}
 
 	private void createObjects() {
