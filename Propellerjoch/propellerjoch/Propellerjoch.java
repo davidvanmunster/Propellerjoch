@@ -1,5 +1,7 @@
 package propellerjoch;
 
+import java.util.ArrayList;
+
 import nl.han.ica.oopg.engine.GameEngine;
 import nl.han.ica.oopg.objects.TextObject;
 import nl.han.ica.oopg.tile.TileMap;
@@ -24,7 +26,7 @@ public class Propellerjoch extends GameEngine {
 
 		pj.runSketch();
 	}
-
+	
 	@Override
 	public void setupGame() {
 		int worldWidth = 1440;

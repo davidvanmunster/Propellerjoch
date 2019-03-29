@@ -1,5 +1,6 @@
 package propellerjoch;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import nl.han.ica.oopg.objects.Sprite;
@@ -15,6 +16,9 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
 	
 	private boolean springen = false, vallen = false;
 	
+	ArrayList<Toets> toets = new ArrayList<Toets>();
+	
+	
 	// Springsnelheid
 	private float springSnelheid = 5;
 	private float huidigeSpringSnelheid = springSnelheid;
@@ -25,6 +29,16 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
 		float gravity = 0.15f;
 		setGravity(gravity);
 		this.pj = pj;
+		
+		Toets keyUp = new Toets(pj.UP);
+		Toets keyDown = new Toets(pj.DOWN);
+		Toets keyLeft = new Toets(pj.LEFT);
+		Toets keyRight = new Toets(pj.RIGHT);
+		
+		toets.add(keyUp);
+		toets.add(keyDown);
+		toets.add(keyLeft);
+		toets.add(keyRight);
 	}
 	
 	@Override
@@ -39,18 +53,13 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
 			}
 		}
 	}
+
+	
 	
 	@Override
 	public void keyPressed(int keyCode, char key) {
-		final int speed = 2;
-		if (keyCode == pj.LEFT) {
-			setDirectionSpeed(270, speed);
-		}
-		if (keyCode == pj.RIGHT) {
-			setDirectionSpeed(90, speed);
-		}
-		if (keyCode == pj.UP && !vallen) {
-			springen = true;
+		for (Toets t : toets) {
+			
 		}
 	}
 
