@@ -16,7 +16,8 @@ public class Propellerjoch extends GameEngine {
 
 	private Player player;
 	private Disc disc;
-
+	private Monster monster;
+	
 	public static String MEDIA_URL = "Propellerjoch/propellerjoch/media/";
 
 	public static void main(String[] args) {
@@ -45,6 +46,8 @@ public class Propellerjoch extends GameEngine {
 		addGameObject(player, 200, 200);
 		disc = new Disc(this);
 		addGameObject(disc, -10, 50);
+		monster = new Monster(this);
+		addGameObject(monster, 690, 650);
 	}
 
 	@Override
