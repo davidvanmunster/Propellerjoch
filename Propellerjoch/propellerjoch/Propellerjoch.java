@@ -13,31 +13,31 @@ import nl.han.ica.oopg.objects.Sprite;
 import nl.han.ica.oopg.objects.SpriteObject;
 
 public class Propellerjoch extends GameEngine {
-	
+
 	private Player player;
 	private Disc disc;
-	
+
 	public static String MEDIA_URL = "Propellerjoch/propellerjoch/media/";
 
 	public static void main(String[] args) {
 		Propellerjoch pj = new Propellerjoch();
-		
+
 		pj.runSketch();
 	}
 
 	@Override
 	public void setupGame() {
-		int worldWidth = 3000;
-		int worldHeight = 800;
-		
+		int worldWidth = 1440;
+		int worldHeight = 1200;
+
 		createObjects();
 		initializeTileMap();
-		
+
 		View view = new View(worldWidth, worldHeight);
-		
+
 		setView(view);
 		size(worldWidth, worldHeight);
-		createViewWithViewport(worldWidth, worldHeight, 1200, 800, 1.3f);
+		createViewWithViewport(worldWidth, worldHeight, 1200, 800, 1.2f);
 	}
 
 	private void createObjects() {
@@ -50,35 +50,43 @@ public class Propellerjoch extends GameEngine {
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
-		
-	}
-	
-    private void createViewWithViewport(int worldWidth, int worldHeight, int screenWidth, int screenHeight, float zoomFactor) {
-        EdgeFollowingViewport viewPort = new EdgeFollowingViewport(player, (int) Math.ceil(screenWidth / zoomFactor), (int) Math.ceil(screenHeight / zoomFactor), 0, 0);
-        viewPort.setTolerance(50, 50, 50, 50);
-        View view = new View(viewPort, worldWidth, worldHeight);
-        setView(view);
-        size(screenWidth, screenHeight);
-        view.setBackground(loadImage(Propellerjoch.MEDIA_URL.concat("background.png")));
-    }
-    
-    private void initializeTileMap() {
-        // Load Sprites
-        Sprite floorSprite = new Sprite(Propellerjoch.MEDIA_URL.concat("platformPack_tile001.png"));
-        // Create tile types with the right Tile class and sprite
-        TileType<FloorTile> floorTileType = new TileType<>(FloorTile.class, floorSprite);
 
-        TileType[] tileTypes = {floorTileType};
-        int tileSize = 64;
-        int tilesMap[][] = {
-                {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
-                {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
-                {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
-                {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
-                {-1, -1, -1, -1, -1, -1, -1, 0, 0, -1, -1, -1, -1, -1, -1, -1, },
-                {-1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, },
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, },
-        };
-        tileMap = new TileMap(tileSize, tileTypes, tilesMap);
-    }
+	}
+
+	private void createViewWithViewport(int worldWidth, int worldHeight, int screenWidth, int screenHeight,
+			float zoomFactor) {
+		CenterFollowingViewport viewPort = new CenterFollowingViewport(player,
+				(int) Math.ceil(screenWidth / zoomFactor), (int) Math.ceil(screenHeight / zoomFactor), 0, 0);
+		viewPort.setTolerance(50, 50, 50, 50);
+		View view = new View(viewPort, worldWidth, worldHeight);
+		setView(view);
+		size(screenWidth, screenHeight);
+		view.setBackground(loadImage(Propellerjoch.MEDIA_URL.concat("backgroundBergen.png")));
+	}
+
+	private void initializeTileMap() {
+		// Load Sprites
+		Sprite floorSprite = new Sprite(Propellerjoch.MEDIA_URL.concat("platformPack_tile001.png"));
+		// Create tile types with the right Tile class and sprite
+		TileType<FloorTile> floorTileType = new TileType<>(FloorTile.class, floorSprite);
+
+		TileType[] tileTypes = { floorTileType };
+		int tileSize = 64;
+		int tilesMap[][] = { 
+				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, 0, 0, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, }, };
+		tileMap = new TileMap(tileSize, tileTypes, tilesMap);
+	}
 }
