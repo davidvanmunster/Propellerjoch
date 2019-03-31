@@ -1,18 +1,22 @@
 package propellerjoch;
 
 public class Toets {
-	int ingedrukteToets;
+	int keyCode;
 	boolean ingedrukt;
 	
-	public Toets(int ingedrukteToets) {
-		this.ingedrukteToets = ingedrukteToets;
+	public Toets(int keyCode) {
+		this.keyCode = keyCode;
+	}
+	
+	public int getKeyCode() {
+		return keyCode;
 	}
 	
 	public boolean getIngedrukt() {
 		return ingedrukt;
 	}
 	
-	void setIngedrukt(boolean ingedrukt) {
+	public void setIngedrukt(boolean ingedrukt) {
 		this.ingedrukt = ingedrukt;
 	}
 }
