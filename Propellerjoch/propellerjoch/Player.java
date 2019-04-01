@@ -13,24 +13,22 @@ import propellerjoch.tiles.FloorTile;
 
 public class Player extends SpriteObject implements ICollidableWithTiles {
 	private Propellerjoch pj;
-
-	private boolean springen = false, vallen = false;
+	private boolean raaktGrondAan = false;
 
 	ArrayList<Toets> toets = new ArrayList<Toets>();
 
-	// Springsnelheid
-	private float springSnelheid = 10;
 	Toets keyUp = new Toets(38);
 	Toets keyDown = new Toets(40);
 	Toets keyLeft = new Toets(37);
 	Toets keyRight = new Toets(39);
-	float gravity = 3.5f;
 
 	public Player(Propellerjoch pj) {
 		// Met `.concat()` plak je 2 strings aan elkaar.
 		super(new Sprite(Propellerjoch.MEDIA_URL.concat("player.png")));
 		this.pj = pj;
 
+		float gravity = 2.5f;
+		setGravity(gravity);
 		toets.add(keyUp);
 		toets.add(keyDown);
 		toets.add(keyLeft);
@@ -40,25 +38,13 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
 	@Override
 	public void update() {
 		final int speed = 3;
+		final int springspeed = 50;
 		final int stop = 0;
-		
-		setGravity(gravity);
-		
-		while (springen) {
-			vallen = true;
-			setGravity(0);
-			setDirectionSpeed(0, springSnelheid);
 
-			if (getySpeed() <= 0.01) {
-				setGravity(3.5f);
-				springen = false;
-			}
-		}
-
-		if (keyUp.getIngedrukt() && !vallen) {
-			springen = true;
-		} 
-		else if (keyRight.getIngedrukt()) {
+		if (keyUp.getIngedrukt() && raaktGrondAan) {
+			setDirectionSpeed(0, springspeed);
+			raaktGrondAan = false;
+		} else if (keyRight.getIngedrukt()) {
 			setDirectionSpeed(90, speed);
 		}
 //		else if (keyDown.getIngedrukt()) {
@@ -66,8 +52,10 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
 //		}
 		else if (keyLeft.getIngedrukt()) {
 			setDirectionSpeed(270, speed);
-		} 
-		else if (keyLeft.getIngedrukt() == false || keyRight.getIngedrukt() == false) {
+		} else if (keyLeft.getIngedrukt() == false || keyRight.getIngedrukt() == false) {
+			setDirectionSpeed(0, stop);
+		}
+		if ((!keyLeft.getIngedrukt() ^ keyRight.getIngedrukt()) && !keyUp.getIngedrukt()) {
 			setDirectionSpeed(0, stop);
 		}
 	}
@@ -100,7 +88,7 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
 				try {
 					vector = pj.getTileMap().getTilePixelLocation(ct.getTile());
 					setY(vector.y - getHeight());
-					vallen = false;
+					raaktGrondAan = true;
 				} catch (TileNotFoundException e) {
 					e.printStackTrace();
 				}

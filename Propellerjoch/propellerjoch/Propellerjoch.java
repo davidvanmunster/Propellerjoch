@@ -37,8 +37,6 @@ public class Propellerjoch extends GameEngine {
 
 		View view = new View(worldWidth, worldHeight);
 
-		setView(view);
-		size(worldWidth, worldHeight);
 		createViewWithViewport(worldWidth, worldHeight, 1200, 800, 1.2f);
 	}
 
