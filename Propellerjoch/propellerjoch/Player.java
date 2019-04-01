@@ -27,7 +27,7 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
 		super(new Sprite(Propellerjoch.MEDIA_URL.concat("player.png")));
 		this.pj = pj;
 
-		float gravity = 2.5f;
+		float gravity = 3f;
 		setGravity(gravity);
 		toets.add(keyUp);
 		toets.add(keyDown);
