@@ -18,9 +18,9 @@ public class Monsters extends SpriteObject {
 	private Propellerjoch pj;
 	private Player player;
 	
-	private float speed;
-	private float beginPunt;
-	private float eindPunt;
+	protected float speed;
+	protected float beginPunt;
+	protected float eindPunt;
 	
 	public Monsters(Sprite sprite, Propellerjoch pj, float beginPunt, float eindPunt, float speed) {
 		super(sprite);
@@ -30,12 +30,11 @@ public class Monsters extends SpriteObject {
 		this.speed = speed;
 	}
 
-	@Override
 	public void update() {	
-		if (x < eindPunt) {
+		if (x < beginPunt) {
 			setDirectionSpeed(90, speed);
 		}
-		if (x > beginPunt) {
+		if (x > eindPunt) {
 			setDirectionSpeed(270, speed);
 		}
 	}

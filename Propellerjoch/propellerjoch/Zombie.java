@@ -22,9 +22,4 @@ public class Zombie extends Monsters implements ICollidableWithTiles, ICollidabl
 		setGravity(gravity);
 		this.pj = pj;
 	}
-
-	@Override
-	public void update() {
-		
-	}
 }
