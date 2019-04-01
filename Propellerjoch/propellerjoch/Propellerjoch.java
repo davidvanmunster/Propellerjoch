@@ -16,6 +16,7 @@ public class Propellerjoch extends GameEngine {
 
 	private Player player;
 	private Zombie zombie;
+	private Spin spin;
 	
 	public static String MEDIA_URL = "Propellerjoch/propellerjoch/media/";
 
@@ -43,8 +44,11 @@ public class Propellerjoch extends GameEngine {
 	private void createObjects() {
 		player = new Player(this);
 		addGameObject(player, 200, 200);
-		zombie = new Zombie(this);
-		addGameObject(zombie, 690, 650);
+		// Voor monsters : type(null, this, beginPunt, eindPunt, speed)
+		zombie = new Zombie(null, this, 750, 1100, 1.5f);
+		addGameObject(zombie, 730, 650);
+		spin = new Spin(null, this, 250, 600, 1f);
+		addGameObject(spin, 800, 200);
 	}
 
 	@Override
