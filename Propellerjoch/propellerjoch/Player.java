@@ -13,56 +13,70 @@ import propellerjoch.tiles.FloorTile;
 
 public class Player extends SpriteObject implements ICollidableWithTiles {
 	private Propellerjoch pj;
+	private boolean raaktGrondAan = false;
 
-	private boolean springen = false, vallen = false;
+	ArrayList<Toets> toets = new ArrayList<Toets>();
 
-	// Springsnelheid
-	private float springSnelheid = 5;
-	private float huidigeSpringSnelheid = springSnelheid;
+	Toets keyUp = new Toets(38);
+	Toets keyDown = new Toets(40);
+	Toets keyLeft = new Toets(37);
+	Toets keyRight = new Toets(39);
 
 	public Player(Propellerjoch pj) {
 		// Met `.concat()` plak je 2 strings aan elkaar.
 		super(new Sprite(Propellerjoch.MEDIA_URL.concat("player.png")));
-		float gravity = 0.15f;
-		setGravity(gravity);
 		this.pj = pj;
+
+		float gravity = 3f;
+		setGravity(gravity);
+		toets.add(keyUp);
+		toets.add(keyDown);
+		toets.add(keyLeft);
+		toets.add(keyRight);
 	}
 
 	@Override
 	public void update() {
-		if (springen) {
-			vallen = true;
-			setDirectionSpeed(0, huidigeSpringSnelheid);
+		final int speed = 3;
+		final int springspeed = 50;
+		final int stop = 0;
 
-			if (getySpeed() <= 0.01) {
-				springen = false;
-				huidigeSpringSnelheid = springSnelheid;
-			}
+		if (keyUp.getIngedrukt() && raaktGrondAan) {
+			setDirectionSpeed(0, springspeed);
+			raaktGrondAan = false;
+		} else if (keyRight.getIngedrukt()) {
+			setDirectionSpeed(90, speed);
+		}
+//		else if (keyDown.getIngedrukt()) {
+//			setDirectionSpeed(180, speed);
+//		}
+		else if (keyLeft.getIngedrukt()) {
+			setDirectionSpeed(270, speed);
+		} else if (keyLeft.getIngedrukt() == false || keyRight.getIngedrukt() == false) {
+			setDirectionSpeed(0, stop);
+		}
+		if ((!keyLeft.getIngedrukt() ^ keyRight.getIngedrukt()) && !keyUp.getIngedrukt()) {
+			setDirectionSpeed(0, stop);
 		}
 	}
 
 	@Override
 	public void keyPressed(int keyCode, char key) {
-		final int speed = 3;
-		if (keyCode == pj.LEFT) {
-			setDirectionSpeed(270, speed);
-		}
-		if (keyCode == pj.RIGHT) {
-			setDirectionSpeed(90, speed);
-		}
-		if (keyCode == pj.UP && !vallen) {
-			springen = true;
+		for (Toets t : toets) {
+			if (keyCode == t.getKeyCode()) {
+				t.setIngedrukt(true);
+			}
+			System.out.println(t.getIngedrukt());
 		}
 	}
 
 	@Override
 	public void keyReleased(int keyCode, char key) {
-		final int speed = 0;
-		if (keyCode == pj.LEFT) {
-			setDirectionSpeed(270, speed);
-		}
-		if (keyCode == pj.RIGHT) {
-			setDirectionSpeed(90, speed);
+		for (Toets t : toets) {
+			if (keyCode == t.getKeyCode()) {
+				t.setIngedrukt(false);
+			}
+			System.out.println(t.getIngedrukt());
 		}
 	}
 
@@ -75,7 +89,7 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
 					try {
 						vector = pj.getTileMap().getTilePixelLocation(ct.getTile());
 						setY(vector.y - getHeight());
-						vallen = false;
+						raaktGrondAan = true;
 					} catch (TileNotFoundException e) {
 						e.printStackTrace();
 					}
