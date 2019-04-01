@@ -1,5 +1,6 @@
 package propellerjoch;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import nl.han.ica.oopg.objects.Sprite;
@@ -66,7 +67,6 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
 			if (keyCode == t.getKeyCode()) {
 				t.setIngedrukt(true);
 			}
-			System.out.println(t.getIngedrukt());
 		}
 	}
 
@@ -76,7 +76,6 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
 			if (keyCode == t.getKeyCode()) {
 				t.setIngedrukt(false);
 			}
-			System.out.println(t.getIngedrukt());
 		}
 	}
 
@@ -85,30 +84,12 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
 		PVector vector;
 		for (CollidedTile ct : collidedTiles) {
 			if (ct.getTile() instanceof FloorTile) {
-				if (CollisionSide.TOP.equals(ct.getCollisionSide())) {
-					try {
-						vector = pj.getTileMap().getTilePixelLocation(ct.getTile());
-						setY(vector.y - getHeight());
-						raaktGrondAan = true;
-					} catch (TileNotFoundException e) {
-						e.printStackTrace();
-					}
-				}
-				if (CollisionSide.LEFT.equals(ct.getCollisionSide())) {
-					try {
-						vector = pj.getTileMap().getTilePixelLocation(ct.getTile());
-						setX(vector.x - getWidth());
-					} catch (TileNotFoundException e) {
-						e.printStackTrace();
-					}
-				}
-				if (CollisionSide.RIGHT.equals(ct.getCollisionSide())) {
-					try {
-						vector = pj.getTileMap().getTilePixelLocation(ct.getTile());
-						setX(vector.x + getWidth());
-					} catch (TileNotFoundException e) {
-						e.printStackTrace();
-					}
+				try {
+					vector = pj.getTileMap().getTilePixelLocation(ct.getTile());
+					setY(vector.y - getHeight());
+					raaktGrondAan = true;
+				} catch (TileNotFoundException e) {
+					e.printStackTrace();
 				}
 
 			}

@@ -15,7 +15,6 @@ import nl.han.ica.oopg.objects.SpriteObject;
 public class Propellerjoch extends GameEngine {
 
 	private Player player;
-	private Disc disc;
 	private Zombie zombie;
 	
 	public static String MEDIA_URL = "Propellerjoch/propellerjoch/media/";
@@ -44,8 +43,6 @@ public class Propellerjoch extends GameEngine {
 	private void createObjects() {
 		player = new Player(this);
 		addGameObject(player, 200, 200);
-		disc = new Disc(this);
-		addGameObject(disc, -10, 50);
 		zombie = new Zombie(this);
 		addGameObject(zombie, 690, 650);
 	}
