@@ -14,7 +14,7 @@ import propellerjoch.tiles.FloorTile;
 public class Player extends SpriteObject implements ICollidableWithTiles {
 	private Propellerjoch pj;
 
-	private boolean springen = false, vallen = false;
+	private boolean springen = false, collisionWithFloor = false;
 
 	ArrayList<Toets> toets = new ArrayList<Toets>();
 
@@ -41,33 +41,34 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
 	public void update() {
 		final int speed = 3;
 		final int stop = 0;
-		
-		setGravity(gravity);
-		
-		while (springen) {
-			vallen = true;
-			setGravity(0);
-			setDirectionSpeed(0, springSnelheid);
 
-			if (getySpeed() <= 0.01) {
-				setGravity(3.5f);
-				springen = false;
-			}
+		setGravity(gravity);
+
+		while (springen) {
+
 		}
 
-		if (keyUp.getIngedrukt() && !vallen) {
-			springen = true;
-		} 
-		else if (keyRight.getIngedrukt()) {
+		System.out.println(collisionWithFloor);
+
+		if (keyUp.getIngedrukt() && collisionWithFloor) {
+			collisionWithFloor = true;
+//			setDirectionSpeed(0, springSnelheid);
+			setY(getY() - 15);
+//			if (getySpeed() <= 0.01) {
+//				setGravity(3.5f);
+//				springen = false;
+//			}
+		}
+		if (keyRight.getIngedrukt()) {
 			setDirectionSpeed(90, speed);
 		}
 //		else if (keyDown.getIngedrukt()) {
 //			setDirectionSpeed(180, speed);
 //		}
-		else if (keyLeft.getIngedrukt()) {
+		if (keyLeft.getIngedrukt()) {
 			setDirectionSpeed(270, speed);
-		} 
-		else if (keyLeft.getIngedrukt() == false || keyRight.getIngedrukt() == false) {
+		}
+		if (!keyLeft.getIngedrukt() ^ keyRight.getIngedrukt()) {
 			setDirectionSpeed(0, stop);
 		}
 	}
@@ -78,7 +79,7 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
 			if (keyCode == t.getKeyCode()) {
 				t.setIngedrukt(true);
 			}
-			System.out.println(t.getIngedrukt());
+//			System.out.println(t.getIngedrukt());
 		}
 	}
 
@@ -88,7 +89,7 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
 			if (keyCode == t.getKeyCode()) {
 				t.setIngedrukt(false);
 			}
-			System.out.println(t.getIngedrukt());
+//			System.out.println(t.getIngedrukt());
 		}
 	}
 
@@ -96,14 +97,17 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
 	public void tileCollisionOccurred(List<CollidedTile> collidedTiles) {
 		PVector vector;
 		for (CollidedTile ct : collidedTiles) {
+//			collisionWithFloor = false;
 			if (ct.getTile() instanceof FloorTile) {
 				try {
 					vector = pj.getTileMap().getTilePixelLocation(ct.getTile());
 					setY(vector.y - getHeight());
-					vallen = false;
+					collisionWithFloor = true;
 				} catch (TileNotFoundException e) {
 					e.printStackTrace();
 				}
+			} else {
+				collisionWithFloor = false;
 			}
 		}
 
