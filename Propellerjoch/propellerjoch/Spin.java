@@ -12,11 +12,11 @@ import nl.han.ica.oopg.objects.SpriteObject;
 import processing.core.PVector;
 import propellerjoch.tiles.FloorTile;
 
-public class Zombie extends Monsters implements ICollidableWithTiles, ICollidableWithGameObjects {
+public class Spin extends Monsters implements ICollidableWithTiles, ICollidableWithGameObjects {
 
 	private Propellerjoch pj;
 
-	public Zombie(Sprite sprite, Propellerjoch pj, float beginPunt, float eindPunt, float speed) {
+	public Spin(Sprite sprite, Propellerjoch pj, float beginPunt, float eindPunt, float speed) {
 		super(new Sprite(Propellerjoch.MEDIA_URL.concat("zombie.png")), pj, beginPunt, eindPunt, speed);
 		float gravity = 0.15f;
 		setGravity(gravity);
@@ -25,6 +25,12 @@ public class Zombie extends Monsters implements ICollidableWithTiles, ICollidabl
 
 	@Override
 	public void update() {
-		
+		final float speed = 2f;
+		if (x < 710) {
+			setDirectionSpeed(90, speed);
+		}
+		if (x > 1000) {
+			setDirectionSpeed(270, speed);
+		}
 	}
 }

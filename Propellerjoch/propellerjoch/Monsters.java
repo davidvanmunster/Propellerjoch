@@ -18,14 +18,26 @@ public class Monsters extends SpriteObject {
 	private Propellerjoch pj;
 	private Player player;
 	
-	public Monsters(Sprite sprite, Propellerjoch pj) {
+	private float speed;
+	private float beginPunt;
+	private float eindPunt;
+	
+	public Monsters(Sprite sprite, Propellerjoch pj, float beginPunt, float eindPunt, float speed) {
 		super(sprite);
 		this.pj = pj;
+		this.beginPunt = beginPunt;
+		this.eindPunt = eindPunt;
+		this.speed = speed;
 	}
 
 	@Override
-	public void update() {
-		
+	public void update() {	
+		if (x < eindPunt) {
+			setDirectionSpeed(90, speed);
+		}
+		if (x > beginPunt) {
+			setDirectionSpeed(270, speed);
+		}
 	}
 	
 	public void tileCollisionOccurred(List<CollidedTile> collidedTiles) {
