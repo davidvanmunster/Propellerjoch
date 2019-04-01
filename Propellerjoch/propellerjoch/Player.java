@@ -39,7 +39,7 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
 	@Override
 	public void update() {
 		final int speed = 3;
-		final int springspeed = 50;
+		final int springspeed = 75;
 		final int stop = 0;
 
 		if (keyUp.getIngedrukt() && raaktGrondAan) {
