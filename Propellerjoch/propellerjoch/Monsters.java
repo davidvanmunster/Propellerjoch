@@ -16,15 +16,16 @@ import propellerjoch.tiles.FloorTile;
 
 public class Monsters extends SpriteObject {
 	private Propellerjoch pj;
-	private Player player;
+	protected Player player;
 	
 	protected float speed;
 	protected float beginPunt;
 	protected float eindPunt;
 	
-	public Monsters(Sprite sprite, Propellerjoch pj, float beginPunt, float eindPunt, float speed) {
+	public Monsters(Sprite sprite, Propellerjoch pj, float beginPunt, float eindPunt, float speed, Player player) {
 		super(sprite);
 		this.pj = pj;
+		this.player = player;
 		this.beginPunt = beginPunt;
 		this.eindPunt = eindPunt;
 		this.speed = speed;
@@ -58,6 +59,7 @@ public class Monsters extends SpriteObject {
 			if (go instanceof Player) {		
 				if ((go.getY()+go.getHeight()) <= this.getY()) {
 					pj.deleteGameObject(this);
+					player.springen();
 				}
 				else {
 					System.out.println("Speler dood g");

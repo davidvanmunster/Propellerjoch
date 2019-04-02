@@ -16,8 +16,8 @@ public class Zombie extends Monsters implements ICollidableWithTiles, ICollidabl
 
 	private Propellerjoch pj;
 
-	public Zombie(Sprite sprite, Propellerjoch pj, float beginPunt, float eindPunt, float speed) {
-		super(new Sprite(Propellerjoch.MEDIA_URL.concat("zombie.png")), pj, beginPunt, eindPunt, speed);
+	public Zombie(Sprite sprite, Propellerjoch pj, float beginPunt, float eindPunt, float speed, Player player) {
+		super(new Sprite(Propellerjoch.MEDIA_URL.concat("zombie.png")), pj, beginPunt, eindPunt, speed, player);
 		float gravity = 0.15f;
 		setGravity(gravity);
 		this.pj = pj;

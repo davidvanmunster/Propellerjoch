@@ -39,12 +39,10 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
 	@Override
 	public void update() {
 		final int speed = 3;
-		final int springspeed = 75;
 		final int stop = 0;
 
 		if (keyUp.getIngedrukt() && raaktGrondAan) {
-			setDirectionSpeed(0, springspeed);
-			raaktGrondAan = false;
+			springen();
 		} else if (keyRight.getIngedrukt()) {
 			setDirectionSpeed(90, speed);
 		}
@@ -59,6 +57,12 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
 		if ((!keyLeft.getIngedrukt() ^ keyRight.getIngedrukt()) && !keyUp.getIngedrukt()) {
 			setDirectionSpeed(0, stop);
 		}
+	}
+
+	public void springen() {
+		final int springspeed = 75;
+		setDirectionSpeed(0, springspeed);
+		raaktGrondAan = false;
 	}
 
 	@Override

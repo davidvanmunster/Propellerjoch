@@ -16,8 +16,8 @@ public class Spin extends Monsters implements ICollidableWithTiles, ICollidableW
 
 	private Propellerjoch pj;
 
-	public Spin(Sprite sprite, Propellerjoch pj, float beginPunt, float eindPunt, float speed) {
-		super(new Sprite(Propellerjoch.MEDIA_URL.concat("spin.png")), pj, beginPunt, eindPunt, speed);
+	public Spin(Sprite sprite, Propellerjoch pj, float beginPunt, float eindPunt, float speed, Player player) {
+		super(new Sprite(Propellerjoch.MEDIA_URL.concat("spin.png")), pj, beginPunt, eindPunt, speed, player);
 		this.pj = pj;
 	}
 	
