@@ -53,10 +53,13 @@ public class Propellerjoch extends GameEngine {
 		spin = new Spin(null, this, 250, 600, 1f, player);
 		
 		monsters.add(spin);
+		monsters.add(spin);
+		monsters.add(spin);
 		monsters.add(zombie);
 		addGameObject(zombie, 730, 650);
 		addGameObject(spin, 800, 200);
-		addGameObject(spin, 1150, 650);
+		spin = new Spin(null, this, 500, 900, 1f, player);
+		addGameObject(spin, 1200, 450);
 		cp = new Checkpoint(this);
 //		addGameObject(cp, )
 	}
@@ -103,7 +106,7 @@ public class Propellerjoch extends GameEngine {
 				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
 				{ -1, -1, -1, -1, -1, -1, -1, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
 				{ -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,}, };
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, 0,}, };
 		tileMap = new TileMap(tileSize, tileTypes, tilesMap);
 	}
 }
