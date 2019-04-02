@@ -13,6 +13,7 @@ import nl.han.ica.oopg.collision.ICollidableWithTiles;
 import nl.han.ica.oopg.exceptions.TileNotFoundException;
 import processing.core.PVector;
 import propellerjoch.tiles.FloorTile;
+import propellerjoch.tiles.PlatformTile;
 
 public class Player extends SpriteObject implements ICollidableWithTiles, ICollidableWithGameObjects {
 	private Propellerjoch pj;
@@ -26,10 +27,11 @@ public class Player extends SpriteObject implements ICollidableWithTiles, IColli
 	Toets keyLeft = new Toets(37);
 	Toets keyRight = new Toets(39);
 
-	public Player(Propellerjoch pj) {
+	public Player(Propellerjoch pj, Checkpoint cp) {
 		// Met `.concat()` plak je 2 strings aan elkaar.
 		super(new Sprite(Propellerjoch.MEDIA_URL.concat("player.png")));
 		this.pj = pj;
+		this.cp = cp;
 
 		float gravity = 3f;
 		setGravity(gravity);
@@ -65,13 +67,13 @@ public class Player extends SpriteObject implements ICollidableWithTiles, IColli
 		
 		
 		if (y > 1200) {
-			dood();
+			dood(cp);
 		}
 	}
 
-	public void dood() {
-		this.setX(cp.getCheckpointX());
-		this.setY(cp.getCheckpointY());
+	public void dood(Checkpoint cp) {
+		setX(cp.checkpointX);
+		setY(cp.checkpointY);
 	}
 
 	public void springen() {
@@ -109,7 +111,7 @@ public class Player extends SpriteObject implements ICollidableWithTiles, IColli
 	public void tileCollisionOccurred(List<CollidedTile> collidedTiles) {
 		PVector vector;
 		for (CollidedTile ct : collidedTiles) {
-			if (ct.getTile() instanceof FloorTile) {
+			if (ct.getTile() instanceof FloorTile || ct.getTile() instanceof PlatformTile) {
 				try {
 					vector = pj.getTileMap().getTilePixelLocation(ct.getTile());
 					setY(vector.y - getHeight());
@@ -120,7 +122,6 @@ public class Player extends SpriteObject implements ICollidableWithTiles, IColli
 				} catch (TileNotFoundException e) {
 					e.printStackTrace();
 				}
-
 			}
 		}
 
@@ -136,6 +137,7 @@ public class Player extends SpriteObject implements ICollidableWithTiles, IColli
 				}
 				else {
 					System.out.println("Speler dood g");
+					dood(cp);
 				}
 			}
 		}

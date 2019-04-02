@@ -15,9 +15,9 @@ public class TextObject extends GameObject {
      * Create a new TextObject.
      *
      * @param text     The text
-     * @param fontSize The fontsize in points
+     * @param textSize 
      */
-    public TextObject(String text, int fontSize) {
+    public TextObject(String text, int textSize) {
 
         setText(text);
         setFontSize(fontSize);

@@ -2,6 +2,7 @@ package propellerjoch;
 
 import java.util.ArrayList;
 
+import nl.han.ica.oopg.dashboard.Dashboard;
 import nl.han.ica.oopg.engine.GameEngine;
 import nl.han.ica.oopg.objects.TextObject;
 import nl.han.ica.oopg.tile.TileMap;
@@ -11,17 +12,22 @@ import nl.han.ica.oopg.view.EdgeFollowingViewport;
 import nl.han.ica.oopg.view.View;
 import processing.core.PApplet;
 import propellerjoch.tiles.FloorTile;
+import propellerjoch.tiles.PlatformTile;
+import propellerjoch.tiles.SpikesTile;
 import nl.han.ica.oopg.objects.Sprite;
 import nl.han.ica.oopg.objects.SpriteObject;
 
 public class Propellerjoch extends GameEngine {
 
 	private Player player;
+	private Prinses prinses;
 	private Monster zombie;
 	private Monster spin;
 	private ArrayList<Monster> monsters = new ArrayList<>();
+	private TextObject text;
 	private Checkpoint cp;
-	
+	private Dashboard db;
+
 	public static String MEDIA_URL = "Propellerjoch/propellerjoch/media/";
 
 	public static void main(String[] args) {
@@ -46,12 +52,17 @@ public class Propellerjoch extends GameEngine {
 	}
 
 	private void createObjects() {
-		player = new Player(this);
+		cp = new Checkpoint(this);
+		addGameObject(cp, 1600, 500);
+		prinses = new Prinses(this);
+		addGameObject(prinses, 2600, 700);
+		player = new Player(this, cp);
 		addGameObject(player, 200, 700);
+		
 		// Voor monsters : type(null, this, beginPunt, eindPunt, speed, player)
 		zombie = new Zombie(null, this, 750, 1100, 1.5f, player);
 		spin = new Spin(null, this, 250, 600, 1f, player);
-		
+
 		monsters.add(spin);
 		monsters.add(spin);
 		monsters.add(spin);
@@ -60,17 +71,30 @@ public class Propellerjoch extends GameEngine {
 		addGameObject(spin, 800, 200);
 		spin = new Spin(null, this, 500, 900, 1f, player);
 		addGameObject(spin, 1200, 450);
-		cp = new Checkpoint(this);
-		addGameObject(cp, 1600, 500);
 	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
 		for (Monster m : monsters) {
 			m.update();
 		}
+	}
 
+	public void gameOver() {
+		createDashboard(1200, 800);
+		dashboardText();
+	}
+
+	private void createDashboard(int dashboardWidth, int dashboardHeight) {
+		final int tekstGrootte = 10;
+		Dashboard dashboard = new Dashboard(0, 0, dashboardWidth, dashboardHeight);
+		text = new TextObject("", tekstGrootte);
+		dashboard.addGameObject(text);
+		addDashboard(dashboard);
+	}
+	
+	private void dashboardText() {
+		text.setText("Game Over");
 	}
 
 	private void createViewWithViewport(int worldWidth, int worldHeight, int screenWidth, int screenHeight,
@@ -85,28 +109,44 @@ public class Propellerjoch extends GameEngine {
 	}
 
 	private void initializeTileMap() {
-		// Load Sprites
 		Sprite floorSprite = new Sprite(Propellerjoch.MEDIA_URL.concat("platformPack_tile001.png"));
-		// Create tile types with the right Tile class and sprite
+		Sprite platformSprite = new Sprite(Propellerjoch.MEDIA_URL.concat("platform.png"));
+		Sprite spikesSprite = new Sprite(Propellerjoch.MEDIA_URL.concat("spikes.png"));
 		TileType<FloorTile> floorTileType = new TileType<>(FloorTile.class, floorSprite);
+		TileType<PlatformTile> platformTileType = new TileType<>(PlatformTile.class, platformSprite);
+		TileType<SpikesTile> spikesTileType = new TileType<>(SpikesTile.class, spikesSprite);
 
-		TileType[] tileTypes = { floorTileType };
+		TileType[] tileTypes = { floorTileType, platformTileType, spikesTileType };
 		int tileSize = 64;
-		int tilesMap[][] = { 
-				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
-				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
-				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
-				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
-				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
-				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
-				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
-				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
-				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
-				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
-				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
-				{ -1, -1, -1, -1, -1, -1, -1, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
-				{ -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, 0, 0, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, } };
+		int tilesMap[][] = {
+				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+						-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+						-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+						-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+						-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+						-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+						-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+						-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+						-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+						-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+						-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 1, 1,
+						1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, 0, 0, 2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+						-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, -1, 2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+						-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, 0, 0, -1, -1, -1, 0, 0, 0, 0, 0, 0,
+						0, 0, 0, 0, 0, 0, 0, 0, 0, 0, } };
 		tileMap = new TileMap(tileSize, tileTypes, tilesMap);
 	}
 }
