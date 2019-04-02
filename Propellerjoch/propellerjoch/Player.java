@@ -14,7 +14,7 @@ import propellerjoch.tiles.FloorTile;
 
 public class Player extends SpriteObject implements ICollidableWithTiles {
 	private Propellerjoch pj;
-	private boolean raaktGrondAan = false;
+	private boolean raaktGrondAan = true;
 
 	ArrayList<Toets> toets = new ArrayList<Toets>();
 
@@ -43,13 +43,13 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
 
 		if (keyUp.getIngedrukt() && raaktGrondAan) {
 			springen();
-		} else if (keyRight.getIngedrukt()) {
+		} /*else if (keyUp.getIngedrukt() && !raaktGrondAan) {
+			vliegen();
+		}*/ else if (keyRight.getIngedrukt()) {
 			setDirectionSpeed(90, speed);
-		}
-//		else if (keyDown.getIngedrukt()) {
-//			setDirectionSpeed(180, speed);
-//		}
-		else if (keyLeft.getIngedrukt()) {
+		} else if (keyDown.getIngedrukt()) {
+			setDirectionSpeed(180, speed);
+		} else if (keyLeft.getIngedrukt()) {
 			setDirectionSpeed(270, speed);
 		} else if (keyLeft.getIngedrukt() == false || keyRight.getIngedrukt() == false) {
 			setDirectionSpeed(0, stop);
@@ -63,6 +63,10 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
 		final int springspeed = 75;
 		setDirectionSpeed(0, springspeed);
 		raaktGrondAan = false;
+	}
+	
+	private void vliegen() {
+		
 	}
 
 	@Override
