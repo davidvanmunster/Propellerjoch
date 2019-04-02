@@ -12,7 +12,7 @@ import nl.han.ica.oopg.objects.SpriteObject;
 import processing.core.PVector;
 import propellerjoch.tiles.FloorTile;
 
-public class Zombie extends Monsters implements ICollidableWithTiles, ICollidableWithGameObjects {
+public class Zombie extends Monster implements ICollidableWithTiles, ICollidableWithGameObjects {
 
 	private Propellerjoch pj;
 

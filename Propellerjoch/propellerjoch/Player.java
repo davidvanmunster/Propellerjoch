@@ -43,9 +43,7 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
 
 		if (keyUp.getIngedrukt() && raaktGrondAan) {
 			springen();
-		} /*else if (keyUp.getIngedrukt() && !raaktGrondAan) {
-			vliegen();
-		}*/ else if (keyRight.getIngedrukt()) {
+		} else if (keyRight.getIngedrukt()) {
 			setDirectionSpeed(90, speed);
 		} else if (keyDown.getIngedrukt()) {
 			setDirectionSpeed(180, speed);
@@ -53,8 +51,12 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
 			setDirectionSpeed(270, speed);
 		} else if (keyLeft.getIngedrukt() == false || keyRight.getIngedrukt() == false) {
 			setDirectionSpeed(0, stop);
+		} else if (keyUp.getIngedrukt() == false) {
+			if (getGravity() == 0.3f) {
+				setGravity(3f);
+			}
 		}
-		if ((!keyLeft.getIngedrukt() ^ keyRight.getIngedrukt()) && !keyUp.getIngedrukt()) {
+		if ((!keyLeft.getIngedrukt() ^ keyRight.getIngedrukt()) && !keyUp.getIngedrukt() && !keyDown.getIngedrukt()) {
 			setDirectionSpeed(0, stop);
 		}
 	}
@@ -63,10 +65,13 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
 		final int springspeed = 75;
 		setDirectionSpeed(0, springspeed);
 		raaktGrondAan = false;
+		if (!raaktGrondAan && getySpeed() == 3f) {
+			vliegen();
+		}
 	}
 	
 	private void vliegen() {
-		
+		setGravity(0.3f);
 	}
 
 	@Override
@@ -96,6 +101,9 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
 					vector = pj.getTileMap().getTilePixelLocation(ct.getTile());
 					setY(vector.y - getHeight());
 					raaktGrondAan = true;
+					if (getGravity() == 0.3f) {
+						setGravity(3f);
+					}
 				} catch (TileNotFoundException e) {
 					e.printStackTrace();
 				}

@@ -1,5 +1,7 @@
 package propellerjoch;
 
+import java.util.ArrayList;
+
 import nl.han.ica.oopg.engine.GameEngine;
 import nl.han.ica.oopg.objects.TextObject;
 import nl.han.ica.oopg.tile.TileMap;
@@ -15,8 +17,10 @@ import nl.han.ica.oopg.objects.SpriteObject;
 public class Propellerjoch extends GameEngine {
 
 	private Player player;
-	private Zombie zombie;
-	private Spin spin;
+	private Monster zombie;
+	private Monster spin;
+	private ArrayList<Monster> monsters = new ArrayList<>();
+	private Checkpoint cp;
 	
 	public static String MEDIA_URL = "Propellerjoch/propellerjoch/media/";
 
@@ -45,15 +49,23 @@ public class Propellerjoch extends GameEngine {
 		player = new Player(this);
 		addGameObject(player, 200, 700);
 		// Voor monsters : type(null, this, beginPunt, eindPunt, speed)
-		zombie = new Zombie(null, this, 750, 1100, 1.5f, player);
+		//zombie = new Zombie(null, this, 750, 1100, 1.5f, player);
 		addGameObject(zombie, 730, 650);
 		spin = new Spin(null, this, 250, 600, 1f, player);
+		
+		monsters.add(spin);
+		monsters.add(zombie);
 		addGameObject(spin, 800, 200);
+		cp = new Checkpoint(this);
+//		addGameObject(cp, )
 	}
 
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
+		for (Monster m : monsters) {
+			m.update();
+		}
 
 	}
 

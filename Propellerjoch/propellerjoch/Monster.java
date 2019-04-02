@@ -14,7 +14,7 @@ import processing.core.PGraphics;
 import processing.core.PVector;
 import propellerjoch.tiles.FloorTile;
 
-public class Monsters extends SpriteObject {
+public abstract class Monster extends SpriteObject {
 	private Propellerjoch pj;
 	protected Player player;
 	
@@ -22,7 +22,7 @@ public class Monsters extends SpriteObject {
 	protected float beginPunt;
 	protected float eindPunt;
 	
-	public Monsters(Sprite sprite, Propellerjoch pj, float beginPunt, float eindPunt, float speed, Player player) {
+	public Monster(Sprite sprite, Propellerjoch pj, float beginPunt, float eindPunt, float speed, Player player) {
 		super(sprite);
 		this.pj = pj;
 		this.player = player;

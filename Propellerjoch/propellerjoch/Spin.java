@@ -12,7 +12,7 @@ import nl.han.ica.oopg.objects.SpriteObject;
 import processing.core.PVector;
 import propellerjoch.tiles.FloorTile;
 
-public class Spin extends Monsters implements ICollidableWithTiles, ICollidableWithGameObjects {
+public class Spin extends Monster implements ICollidableWithTiles, ICollidableWithGameObjects {
 
 	private Propellerjoch pj;
 
