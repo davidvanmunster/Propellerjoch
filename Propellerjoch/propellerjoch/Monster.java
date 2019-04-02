@@ -54,7 +54,7 @@ public abstract class Monster extends SpriteObject {
 		}
 	}
 	
-	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
+	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {/*
 		for (GameObject go: collidedGameObjects) {
 			if (go instanceof Player) {		
 				if ((go.getY()+go.getHeight()) <= this.getY()) {
@@ -65,6 +65,6 @@ public abstract class Monster extends SpriteObject {
 					System.out.println("Speler dood g");
 				}
 			}
-		}
+		}*/
 	}
 }

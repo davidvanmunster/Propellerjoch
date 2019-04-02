@@ -10,8 +10,8 @@ import nl.han.ica.oopg.objects.SpriteObject;
 public class Checkpoint extends SpriteObject implements ICollidableWithGameObjects {
 	Propellerjoch pj;
 	
-	public float checkpointX = 200;
-	public float checkpointY = 700;
+	private float checkpointX = 200;
+	private float checkpointY = 700;
 	
 	public Checkpoint(Propellerjoch pj) {
 		super(new Sprite(Propellerjoch.MEDIA_URL.concat("checkpoint.png")));
@@ -30,6 +30,14 @@ public class Checkpoint extends SpriteObject implements ICollidableWithGameObjec
 	private void setCheckpoint(float x, float y) {
 		checkpointX = x;
 		checkpointY = y;
+	}
+	
+	public float getCheckpointX() {
+		return checkpointX;
+	}
+	
+	public float getCheckpointY() {
+		return checkpointY;
 	}
 
 	@Override

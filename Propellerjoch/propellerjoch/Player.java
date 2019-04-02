@@ -3,17 +3,20 @@ package propellerjoch;
 import java.util.ArrayList;
 import java.util.List;
 
+import nl.han.ica.oopg.objects.GameObject;
 import nl.han.ica.oopg.objects.Sprite;
 import nl.han.ica.oopg.objects.SpriteObject;
 import nl.han.ica.oopg.collision.CollidedTile;
 import nl.han.ica.oopg.collision.CollisionSide;
+import nl.han.ica.oopg.collision.ICollidableWithGameObjects;
 import nl.han.ica.oopg.collision.ICollidableWithTiles;
 import nl.han.ica.oopg.exceptions.TileNotFoundException;
 import processing.core.PVector;
 import propellerjoch.tiles.FloorTile;
 
-public class Player extends SpriteObject implements ICollidableWithTiles {
+public class Player extends SpriteObject implements ICollidableWithTiles, ICollidableWithGameObjects {
 	private Propellerjoch pj;
+	private Checkpoint cp;
 	private boolean raaktGrondAan = true;
 
 	ArrayList<Toets> toets = new ArrayList<Toets>();
@@ -59,6 +62,16 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
 		if ((!keyLeft.getIngedrukt() ^ keyRight.getIngedrukt()) && !keyUp.getIngedrukt() && !keyDown.getIngedrukt()) {
 			setDirectionSpeed(0, stop);
 		}
+		
+		
+		if (y > 1200) {
+			dood();
+		}
+	}
+
+	public void dood() {
+		this.setX(cp.getCheckpointX());
+		this.setY(cp.getCheckpointY());
 	}
 
 	public void springen() {
@@ -111,5 +124,21 @@ public class Player extends SpriteObject implements ICollidableWithTiles {
 			}
 		}
 
+	}
+
+	@Override
+	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
+		for (GameObject go: collidedGameObjects) {
+			if (go instanceof Monster) {		
+				if ((this.getY()+this.getHeight()) -5 <= go.getY()) {
+					pj.deleteGameObject(go);
+					springen();
+				}
+				else {
+					System.out.println("Speler dood g");
+				}
+			}
+		}
+		
 	}
 }
