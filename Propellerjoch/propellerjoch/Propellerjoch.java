@@ -11,6 +11,7 @@ import nl.han.ica.oopg.view.EdgeFollowingViewport;
 import nl.han.ica.oopg.view.View;
 import processing.core.PApplet;
 import propellerjoch.tiles.FloorTile;
+import propellerjoch.tiles.SpikesTile;
 import nl.han.ica.oopg.objects.Sprite;
 import nl.han.ica.oopg.objects.SpriteObject;
 
@@ -21,6 +22,7 @@ public class Propellerjoch extends GameEngine {
 	private Monster spin;
 	private ArrayList<Monster> monsters = new ArrayList<>();
 	private Checkpoint cp;
+	private Prinses prinses;
 	
 	public static String MEDIA_URL = "Propellerjoch/propellerjoch/media/";
 
@@ -46,7 +48,9 @@ public class Propellerjoch extends GameEngine {
 	}
 
 	private void createObjects() {
-		player = new Player(this);
+		cp = new Checkpoint(this, 200, 500);
+		addGameObject(cp, 1600, 500);
+		player = new Player(this, cp);
 		addGameObject(player, 200, 700);
 		// Voor monsters : type(null, this, beginPunt, eindPunt, speed, player)
 		zombie = new Zombie(null, this, 750, 1100, 1.5f, player);
@@ -60,8 +64,7 @@ public class Propellerjoch extends GameEngine {
 		addGameObject(spin, 800, 200);
 		spin = new Spin(null, this, 500, 900, 1f, player);
 		addGameObject(spin, 1200, 450);
-		cp = new Checkpoint(this);
-		addGameObject(cp, 1600, 500);
+		
 	}
 
 	@Override
@@ -87,10 +90,12 @@ public class Propellerjoch extends GameEngine {
 	private void initializeTileMap() {
 		// Load Sprites
 		Sprite floorSprite = new Sprite(Propellerjoch.MEDIA_URL.concat("platformPack_tile001.png"));
+		Sprite spikesSprite = new Sprite(Propellerjoch.MEDIA_URL.concat("platformPack_tile001.png"));
 		// Create tile types with the right Tile class and sprite
 		TileType<FloorTile> floorTileType = new TileType<>(FloorTile.class, floorSprite);
-
-		TileType[] tileTypes = { floorTileType };
+		TileType<SpikesTile> spikeTileType = new TileType<>(SpikesTile.class, spikesSprite);
+		
+		TileType[] tileTypes = { floorTileType, spikeTileType };
 		int tileSize = 64;
 		int tilesMap[][] = { 
 				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
@@ -103,7 +108,7 @@ public class Propellerjoch extends GameEngine {
 				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
 				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
 				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
-				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
 				{ -1, -1, -1, -1, -1, -1, -1, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
 				{ -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, 0, 0, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, } };

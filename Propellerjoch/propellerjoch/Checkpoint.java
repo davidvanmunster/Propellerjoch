@@ -13,9 +13,10 @@ public class Checkpoint extends SpriteObject implements ICollidableWithGameObjec
 	private float checkpointX = 200;
 	private float checkpointY = 700;
 	
-	public Checkpoint(Propellerjoch pj) {
+	public Checkpoint(Propellerjoch pj, float x, float y) {
 		super(new Sprite(Propellerjoch.MEDIA_URL.concat("checkpoint.png")));
-		
+		checkpointX = x;
+		checkpointY = y;
 	}
 
 	@Override

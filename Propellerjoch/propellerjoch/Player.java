@@ -13,6 +13,7 @@ import nl.han.ica.oopg.collision.ICollidableWithTiles;
 import nl.han.ica.oopg.exceptions.TileNotFoundException;
 import processing.core.PVector;
 import propellerjoch.tiles.FloorTile;
+import propellerjoch.tiles.SpikesTile;
 
 public class Player extends SpriteObject implements ICollidableWithTiles, ICollidableWithGameObjects {
 	private Propellerjoch pj;
@@ -26,11 +27,11 @@ public class Player extends SpriteObject implements ICollidableWithTiles, IColli
 	Toets keyLeft = new Toets(37);
 	Toets keyRight = new Toets(39);
 
-	public Player(Propellerjoch pj) {
+	public Player(Propellerjoch pj, Checkpoint cp) {
 		// Met `.concat()` plak je 2 strings aan elkaar.
 		super(new Sprite(Propellerjoch.MEDIA_URL.concat("player.png")));
 		this.pj = pj;
-
+		this.cp = cp;
 		float gravity = 3f;
 		setGravity(gravity);
 		toets.add(keyUp);
@@ -62,16 +63,17 @@ public class Player extends SpriteObject implements ICollidableWithTiles, IColli
 		if ((!keyLeft.getIngedrukt() ^ keyRight.getIngedrukt()) && !keyUp.getIngedrukt() && !keyDown.getIngedrukt()) {
 			setDirectionSpeed(0, stop);
 		}
-		
-		
+
 		if (y > 1200) {
 			dood();
 		}
 	}
 
 	public void dood() {
-		this.setX(cp.getCheckpointX());
-		this.setY(cp.getCheckpointY());
+//		System.out.println(cp.getCheckpointX());
+//		System.out.println(cp.getCheckpointY());
+		setX(cp.getCheckpointX());
+		setY(cp.getCheckpointY());
 	}
 
 	public void springen() {
@@ -82,7 +84,7 @@ public class Player extends SpriteObject implements ICollidableWithTiles, IColli
 			vliegen();
 		}
 	}
-	
+
 	private void vliegen() {
 		setGravity(0.3f);
 	}
@@ -120,25 +122,29 @@ public class Player extends SpriteObject implements ICollidableWithTiles, IColli
 				} catch (TileNotFoundException e) {
 					e.printStackTrace();
 				}
-
+			}
+			if (ct.getTile() instanceof SpikesTile) {
+				try {
+					dood();
+				} catch (TileNotFoundException e) {
+					e.printStackTrace();
+				}
 			}
 		}
-
 	}
 
 	@Override
 	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
-		for (GameObject go: collidedGameObjects) {
-			if (go instanceof Monster) {		
-				if ((this.getY()+this.getHeight()) -5 <= go.getY()) {
+		for (GameObject go : collidedGameObjects) {
+			if (go instanceof Monster) {
+				if ((this.getY() + this.getHeight()) - 5 <= go.getY()) {
 					pj.deleteGameObject(go);
 					springen();
-				}
-				else {
+				} else {
 					System.out.println("Speler dood g");
 				}
 			}
 		}
-		
+
 	}
 }
