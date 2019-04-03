@@ -27,7 +27,7 @@ public class Checkpoint extends SpriteObject implements ICollidableWithGameObjec
 		}
 	}
 
-	private void setCheckpoint(float x, float y) {
+	public void setCheckpoint(float x, float y) {
 		checkpointX = x;
 		checkpointY = y;
 	}

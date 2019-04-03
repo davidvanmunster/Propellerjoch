@@ -14,6 +14,7 @@ import nl.han.ica.oopg.exceptions.TileNotFoundException;
 import processing.core.PVector;
 import propellerjoch.tiles.FloorTile;
 import propellerjoch.tiles.PlatformTile;
+import propellerjoch.tiles.SpikesTile;
 
 public class Player extends SpriteObject implements ICollidableWithTiles, ICollidableWithGameObjects {
 	private Propellerjoch pj;
@@ -71,7 +72,7 @@ public class Player extends SpriteObject implements ICollidableWithTiles, IColli
 		}
 	}
 
-	public void dood(Checkpoint cp) {
+	public void gaNaarCp(Checkpoint cp) {
 		setX(cp.checkpointX);
 		setY(cp.checkpointY);
 	}
@@ -89,6 +90,18 @@ public class Player extends SpriteObject implements ICollidableWithTiles, IColli
 		setGravity(0.3f);
 	}
 
+	public void dood(Checkpoint cp) {
+		gaNaarCp(cp);
+		pj.dood.rewind();
+		pj.dood.play();
+	}
+	
+	public void opnieuwLevel() {
+		setX(pj.spawnX);
+		setY(pj.spawnY);
+		cp.setCheckpoint(pj.spawnX, pj.spawnY);
+	}
+	
 	@Override
 	public void keyPressed(int keyCode, char key) {
 		for (Toets t : toets) {
@@ -96,6 +109,13 @@ public class Player extends SpriteObject implements ICollidableWithTiles, IColli
 				t.setIngedrukt(true);
 			}
 		}
+		if (keyCode == 82) {
+			opnieuwLevel();
+		}
+		if (keyCode == 67) {
+			gaNaarCp(cp);
+		}
+//		System.out.println(keyCode);
 	}
 
 	@Override
@@ -119,6 +139,13 @@ public class Player extends SpriteObject implements ICollidableWithTiles, IColli
 					if (getGravity() == 0.3f) {
 						setGravity(3f);
 					}
+				} catch (TileNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
+			if (ct.getTile() instanceof SpikesTile) {
+				try {
+					dood(cp);
 				} catch (TileNotFoundException e) {
 					e.printStackTrace();
 				}
