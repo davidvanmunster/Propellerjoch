@@ -72,11 +72,18 @@ public class Player extends SpriteObject implements ICollidableWithTiles, IColli
 		}
 	}
 
+	/**
+	 * Teleporteert de speler naar de checkpoint.
+	 * @param cp De checkpoint waar de speler naar word geteleporteerd.
+	 */
 	public void gaNaarCp(Checkpoint cp) {
 		setX(cp.checkpointX);
 		setY(cp.checkpointY);
 	}
 
+	/**
+	 * Laat de speler springen.
+	 */
 	public void springen() {
 		final int springspeed = 75;
 		setDirectionSpeed(0, springspeed);
@@ -86,16 +93,27 @@ public class Player extends SpriteObject implements ICollidableWithTiles, IColli
 		}
 	}
 	
+	
+	/**
+	 * Laat de speler vliegen.
+	 */
 	private void vliegen() {
 		setGravity(0.3f);
 	}
 
+	/**
+	 * Dit gebeurt er als de speler dood gaat.
+	 * @param cp De laatste checkpoint.
+	 */
 	public void dood(Checkpoint cp) {
 		gaNaarCp(cp);
 		pj.dood.rewind();
 		pj.dood.play();
 	}
 	
+	/**
+	 * Hier start je weer bij het begin van de game.
+	 */
 	public void opnieuwLevel() {
 		setX(pj.spawnX);
 		setY(pj.spawnY);

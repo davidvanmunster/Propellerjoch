@@ -27,6 +27,11 @@ public class Checkpoint extends SpriteObject implements ICollidableWithGameObjec
 		}
 	}
 
+	/**
+	 * Dit verandert de checkpoint.
+	 * @param x X-coordinaat van de checkpoint.
+	 * @param y Y-coordinaat van de checkpoint.
+	 */
 	public void setCheckpoint(float x, float y) {
 		checkpointX = x;
 		checkpointY = y;

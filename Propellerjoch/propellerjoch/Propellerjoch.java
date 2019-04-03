@@ -18,6 +18,11 @@ import propellerjoch.tiles.SpikesTile;
 import nl.han.ica.oopg.objects.Sprite;
 import nl.han.ica.oopg.objects.SpriteObject;
 
+/**
+ * @author David van Munster & Hidde Koomen
+ * Een spel waar je een parkour moet afleggen door monsters te verslaan.
+ */
+
 public class Propellerjoch extends GameEngine {
 
 	protected Sound achtergrond;
@@ -32,7 +37,7 @@ public class Propellerjoch extends GameEngine {
 	private Checkpoint cp;
 	private Dashboard db;
 
-	protected float spawnX = 1700;
+	protected float spawnX = 200;
 	protected float spawnY = 700;
 	
 	public static String MEDIA_URL = "Propellerjoch/propellerjoch/media/";
@@ -104,11 +109,20 @@ public class Propellerjoch extends GameEngine {
 		}
 	}
 
+	/**
+	 * Laat het scherm zien als het spel voorbij is.
+	 */
 	public void gameOver() {
 		createDashboard(1200, 800);
 		dashboardText();
 	}
 
+	
+	/**
+	 * Maakt een dashboard aan.
+	 * @param dashboardWidth  breedte dashboard
+	 * @param dashboardHeight hoogte dashboard
+	 */
 	private void createDashboard(int dashboardWidth, int dashboardHeight) {
 		final int tekstGrootte = 10;
 		Dashboard dashboard = new Dashboard(0, 0, dashboardWidth, dashboardHeight);
@@ -117,6 +131,9 @@ public class Propellerjoch extends GameEngine {
 		addDashboard(dashboard);
 	}
 	
+	/**
+	 * Dit zet de text op Game Over.
+	 */
 	private void dashboardText() {
 		text.setText("Game Over");
 	}
@@ -132,6 +149,9 @@ public class Propellerjoch extends GameEngine {
 		view.setBackground(loadImage(Propellerjoch.MEDIA_URL.concat("backgroundBergen.png")));
 	}
 
+	/**
+	 * Initialiseerd de tiles.
+	 */
 	private void initializeTileMap() {
 		Sprite floorSprite = new Sprite(Propellerjoch.MEDIA_URL.concat("platformPack_tile001.png"));
 		Sprite platformSprite = new Sprite(Propellerjoch.MEDIA_URL.concat("platform.png"));

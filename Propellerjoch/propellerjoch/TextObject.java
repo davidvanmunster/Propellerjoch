@@ -11,6 +11,10 @@ public class TextObject extends GameObject {
         this.text = text;
     }
 
+    /**
+     * Verandert de tekst.
+     * @param text 
+     */
     public void setText(String text) {
         this.text = text;
     }
