@@ -1,14 +1,13 @@
 package propellerjoch;
 
 import nl.han.ica.oopg.objects.GameObject;
-import nl.han.ica.oopg.objects.TextObject;
 import processing.core.PGraphics;
 
-public class GameOver extends TextObject {
+public class TextObject extends GameObject {
 
     private String text;
 
-    public GameOver(String text) {
+    public TextObject(String text) {
         this.text = text;
     }
 

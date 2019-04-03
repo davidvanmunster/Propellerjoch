@@ -33,7 +33,7 @@ public class Propellerjoch extends GameEngine {
 	private Monster zombie;
 	private Monster spin;
 	private ArrayList<Monster> monsters = new ArrayList<>();
-	private GameOver text;
+	private TextObject text;
 	private Checkpoint cp;
 	private Dashboard db;
 
@@ -74,7 +74,7 @@ public class Propellerjoch extends GameEngine {
 		cp = new Checkpoint(this);
 		addGameObject(cp, 1800, 650);
 		prinses = new Prinses(this);
-//		addGameObject(prinses, 2600, 700);
+		addGameObject(prinses, 2600, 700);
 		player = new Player(this, cp);
 		addGameObject(player, spawnX, spawnY);
 		
@@ -110,6 +110,7 @@ public class Propellerjoch extends GameEngine {
 	public void gameOver() {
 		createDashboard(1200, 800);
 		dashboardText();
+		draw();
 	}
 
 	
@@ -130,7 +131,11 @@ public class Propellerjoch extends GameEngine {
 	 * Dit zet de text op Game Over.
 	 */
 	private void dashboardText() {
-		text.setText("Game Over");
+		text.setText("Game Over!");
+		text.setFontSize(100);
+		text.setForeColor(80, 220, 80, 255);
+		text.setX(width/3);
+		text.setY(height/2);
 	}
 
 	private void createViewWithViewport(int worldWidth, int worldHeight, int screenWidth, int screenHeight,
