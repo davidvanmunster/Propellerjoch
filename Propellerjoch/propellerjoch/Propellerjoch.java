@@ -33,6 +33,7 @@ public class Propellerjoch extends GameEngine {
 	private Monster zombie;
 	private Monster spin;
 	private ArrayList<Monster> monsters = new ArrayList<>();
+	private ZombieSpawner spawner;
 	private TextObject text;
 	private Checkpoint cp;
 	private Dashboard db;
@@ -95,6 +96,10 @@ public class Propellerjoch extends GameEngine {
 		monsters.add(spin);
 		monsters.add(zombie);
 	}
+	
+	public void createZombieSpawner() {
+		spawner = new ZombieSpawner(this, 1);
+	}
 
 	
 	@Override
@@ -128,7 +133,7 @@ public class Propellerjoch extends GameEngine {
 	}
 	
 	/**
-	 * Dit zet de text op Game Over.
+	 * Dit zet de text op Game Over en initialiseerd de textopties.
 	 */
 	private void dashboardText() {
 		text.setText("Game Over!");
