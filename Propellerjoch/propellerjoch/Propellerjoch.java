@@ -33,7 +33,7 @@ public class Propellerjoch extends GameEngine {
 	private Monster zombie;
 	private Monster spin;
 	private ArrayList<Monster> monsters = new ArrayList<>();
-	private TextObject text;
+	private GameOver text;
 	private Checkpoint cp;
 	private Dashboard db;
 
@@ -78,27 +78,22 @@ public class Propellerjoch extends GameEngine {
 		player = new Player(this, cp);
 		addGameObject(player, spawnX, spawnY);
 		
+		
 		// Voor monsters : type(null, this, beginPunt, eindPunt, speed, player)
 		zombie = new Zombie(null, this, 750, 1100, 1.5f, player);
-		spin = new Spin(null, this, 250, 600, 1f, player);
-
-		monsters.add(spin);
-		monsters.add(spin);
-		monsters.add(zombie);
-		monsters.add(zombie);
-		
-		
 		addGameObject(zombie, 730, 650);
 		zombie = new Zombie(null, this, 1800, 2200, 1.5f, player);
-		addGameObject(zombie, 1800, 650);
+		addGameObject(zombie, 1780, 650);
 		zombie = new Zombie(null, this, 1800, 2200, 1.5f, player);
-		addGameObject(zombie, 2000, 650);
+		addGameObject(zombie, 2250, 650);
 		
+		spin = new Spin(null, this, 250, 600, 1f, player);
 		addGameObject(spin, 800, 200);
 		spin = new Spin(null, this, 500, 900, 1f, player);
-		
 		addGameObject(spin, 1200, 450);
 
+		monsters.add(spin);
+		monsters.add(zombie);
 	}
 
 	
@@ -169,7 +164,7 @@ public class Propellerjoch extends GameEngine {
 				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
 				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
 				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
-				{ -1, -1, -1, -1, -1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
 				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1,  1, -1,  1, -1, -1,  1, -1,  1,  1, -1, -1, -1, -1,  1,  1, -1, -1, -1, -1, -1, },
 				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
 				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
