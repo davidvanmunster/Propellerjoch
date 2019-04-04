@@ -27,6 +27,7 @@ public class Propellerjoch extends GameEngine {
 
 	protected Sound achtergrond;
 	protected Sound dood;
+	protected Sound gameover;
 	
 	private Player player;
 	private Prinses prinses;
@@ -66,9 +67,10 @@ public class Propellerjoch extends GameEngine {
 	}
 	
 	private void initializeSound() {
-		achtergrond = new Sound(this, "Propellerjoch/propellerjoch/media/backgroundMusic.mp3");
+		achtergrond = new Sound(this, Propellerjoch.MEDIA_URL.concat("backgroundMusic.mp3"));
         achtergrond.loop(-1);
-        dood = new Sound(this, "Propellerjoch/propellerjoch/media/death.mp3");
+        dood = new Sound(this, Propellerjoch.MEDIA_URL.concat("death.mp3"));
+        gameover = new Sound(this, Propellerjoch.MEDIA_URL.concat("gameover.mp3"));
 	}
 
 	private void createObjects() {
@@ -98,7 +100,7 @@ public class Propellerjoch extends GameEngine {
 	}
 	
 	public void createZombieSpawner() {
-		spawner = new ZombieSpawner(this, 1);
+		spawner = new ZombieSpawner(this, 1, null);
 	}
 
 	

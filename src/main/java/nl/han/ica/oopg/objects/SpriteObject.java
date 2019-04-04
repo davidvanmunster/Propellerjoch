@@ -7,6 +7,8 @@ import processing.core.PImage;
  * The SpriteObject is a extension of GameObject. Instead of having a draw implementation you will need to provide an image/sprite.
  */
 public abstract class SpriteObject extends GameObject {
+	
+	boolean eindMuziek = true;
 
 	private Sprite sprite;
 	
