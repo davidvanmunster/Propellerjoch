@@ -77,7 +77,7 @@ public class Propellerjoch extends GameEngine {
 		cp = new Checkpoint(this);
 		addGameObject(cp, 1800, 650);
 		prinses = new Prinses(this);
-		addGameObject(prinses, 2600, 700);
+		addGameObject(prinses, 700, 270);
 		player = new Player(this, cp);
 		addGameObject(player, spawnX, spawnY);
 		
