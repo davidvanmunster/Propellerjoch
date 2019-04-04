@@ -13,6 +13,11 @@ public class Checkpoint extends SpriteObject implements ICollidableWithGameObjec
 	public float checkpointX = 200;
 	public float checkpointY = 700;
 	
+	/**
+	 * Constructor
+	 * 
+	 * @param pj	- Referentie naar de wereld
+	 */
 	public Checkpoint(Propellerjoch pj) {
 		super(new Sprite(Propellerjoch.MEDIA_URL.concat("checkpoint.png")));
 		

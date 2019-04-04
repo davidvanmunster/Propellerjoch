@@ -66,6 +66,9 @@ public class Propellerjoch extends GameEngine {
 		createViewWithViewport(worldWidth, worldHeight, 1200, 800, 1.2f);
 	}
 	
+	/**
+	 * 	Initialiseerd het geluid
+	 */
 	private void initializeSound() {
 		achtergrond = new Sound(this, Propellerjoch.MEDIA_URL.concat("backgroundMusic.mp3"));
         achtergrond.loop(-1);
@@ -73,13 +76,18 @@ public class Propellerjoch extends GameEngine {
         gameover = new Sound(this, Propellerjoch.MEDIA_URL.concat("gameover.mp3"));
 	}
 
+	/**
+	 * 	Creëert de objecten
+	 */
 	private void createObjects() {
 		cp = new Checkpoint(this);
-		addGameObject(cp, 1800, 650);
+		addGameObject(cp, 1380, 650);
 		prinses = new Prinses(this);
 		addGameObject(prinses, 700, 270);
 		player = new Player(this, cp);
 		addGameObject(player, spawnX, spawnY);
+		spawner = new ZombieSpawner(this, 1, null);
+		addGameObject(spawner);
 		
 		
 		// Voor monsters : type(null, this, beginPunt, eindPunt, speed, player)
@@ -98,11 +106,6 @@ public class Propellerjoch extends GameEngine {
 		monsters.add(spin);
 		monsters.add(zombie);
 	}
-	
-	public void createZombieSpawner() {
-		spawner = new ZombieSpawner(this, 1, null);
-	}
-
 	
 	@Override
 	public void update() {

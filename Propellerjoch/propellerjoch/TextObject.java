@@ -7,6 +7,11 @@ public class TextObject extends GameObject {
 
     private String text;
 
+    /**
+     * Constructor
+     * 
+     * @param text	- De meegegeven tekst
+     */
     public TextObject(String text) {
         this.text = text;
     }

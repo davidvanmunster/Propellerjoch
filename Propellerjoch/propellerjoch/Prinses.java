@@ -14,6 +14,11 @@ public class Prinses extends SpriteObject implements ICollidableWithGameObjects 
 	
 	boolean eindMuziek = true;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param pj	- Referentie naar de wereld
+	 */
 	public Prinses(Propellerjoch pj) {
 		super(new Sprite(Propellerjoch.MEDIA_URL.concat("prinses.png")));
 		this.pj = pj;

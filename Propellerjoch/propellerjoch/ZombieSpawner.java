@@ -13,19 +13,19 @@ public class ZombieSpawner extends SpriteObject implements IAlarmListener {
 	private Player player;
 	private Sprite sprite;
 
-	private float zombiesPerVijfSeconden;
+	private float zombiesPerTienSeconden;
 	private Random random;
 
 	/**
 	 * Constructor
 	 *
-	 * @param world            Referentie naar de wereld
-	 * @param popSound         Geluid dat moet klinken als een bel knapt
-	 * @param bubblesPerSecond Aantal bellen dat per seconden gemaakt moet worden
+	 * @param pj               			- Referentie naar de wereld
+	 * @param zombiesPerTienSeconden    - Aantal zombies dat per 10 seconden gemaakt moet worden
+	 * @param sprite					- Sprite van de zombie
 	 */
-	public ZombieSpawner(Propellerjoch pj, float zombiesPerVijfSeconden, Sprite sprite) {
+	public ZombieSpawner(Propellerjoch pj, float zombiesPerTienSeconden, Sprite sprite) {
 		super(new Sprite(Propellerjoch.MEDIA_URL.concat("zombie.png")));
-		this.zombiesPerVijfSeconden = zombiesPerVijfSeconden;
+		this.zombiesPerTienSeconden = zombiesPerTienSeconden;
 		this.pj = pj;
 		this.sprite = sprite;
 		random = new Random();
@@ -33,7 +33,7 @@ public class ZombieSpawner extends SpriteObject implements IAlarmListener {
 	}
 
 	private void startAlarm() {
-		Alarm alarm = new Alarm("New zombie", 5 / zombiesPerVijfSeconden);
+		Alarm alarm = new Alarm("New zombie", 10 / zombiesPerTienSeconden);
 		alarm.addTarget(this);
 		alarm.start();
 	}
@@ -41,9 +41,9 @@ public class ZombieSpawner extends SpriteObject implements IAlarmListener {
 	@Override
 	public void triggerAlarm(String alarmName) {
 		int x = random.nextInt(50) + 1749;
-		float snelheid = (random.nextFloat() * 5) + 0.5f;
-		Zombie z = new Zombie(sprite, pj, 1800, 2200, snelheid, player);
-		pj.addGameObject(z, x, 650);
+		float snelheid = (random.nextFloat() * 4) + 0.5f;
+		Zombie z = new Zombie(sprite, pj, 1800, 2650, snelheid, player);
+		pj.addGameObject(z, x, 750);
 		startAlarm();
 	}
 

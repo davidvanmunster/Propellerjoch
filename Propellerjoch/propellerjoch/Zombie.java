@@ -8,6 +8,16 @@ public class Zombie extends Monster implements ICollidableWithTiles, ICollidable
 
 	private Propellerjoch pj;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param sprite		- De sprite van de zombie
+	 * @param pj			- Referentie naar de wereld
+	 * @param beginPunt		- Het beginpunt van het loopgebied (x voor zombies, y voor spinnen)
+	 * @param eindPunt		- Het eindpunt van het loopgebied
+	 * @param speed			- De snelheid van het monster
+	 * @param player		- Referentie naar de speler
+	 */
 	public Zombie(Sprite sprite, Propellerjoch pj, float beginPunt, float eindPunt, float speed, Player player) {
 		super(new Sprite(Propellerjoch.MEDIA_URL.concat("zombie.png")), pj, beginPunt, eindPunt, speed, player);
 		float gravity = 0.15f;

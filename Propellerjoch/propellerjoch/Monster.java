@@ -22,6 +22,16 @@ public abstract class Monster extends SpriteObject {
 	protected float beginPunt;
 	protected float eindPunt;
 	
+	/**
+	 * Constructor
+	 * 
+	 * @param sprite		- De sprite van desbetreffende monster
+	 * @param pj			- Referentie naar de wereld
+	 * @param beginPunt		- Het beginpunt van het loopgebied (x voor zombies, y voor spinnen)
+	 * @param eindPunt		- Het eindpunt van het loopgebied
+	 * @param speed			- De snelheid van het monster
+	 * @param player		- Referentie naar de speler
+	 */
 	public Monster(Sprite sprite, Propellerjoch pj, float beginPunt, float eindPunt, float speed, Player player) {
 		super(sprite);
 		this.pj = pj;

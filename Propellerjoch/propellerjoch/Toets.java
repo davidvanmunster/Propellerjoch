@@ -4,6 +4,11 @@ public class Toets {
 	int keyCode;
 	boolean ingedrukt;
 	
+	/**
+	 * Constructor
+	 * 
+	 * @param keyCode	- De Toets code van de ingedrukte toets
+	 */
 	public Toets(int keyCode) {
 		this.keyCode = keyCode;
 	}

@@ -28,6 +28,12 @@ public class Player extends SpriteObject implements ICollidableWithTiles, IColli
 	Toets keyLeft = new Toets(37);
 	Toets keyRight = new Toets(39);
 
+	/**
+	 * Constructor
+	 * 
+	 * @param pj - Referentie naar de wereld
+	 * @param cp - Referentie naar de checkpoint class
+	 */
 	public Player(Propellerjoch pj, Checkpoint cp) {
 		// Met `.concat()` plak je 2 strings aan elkaar.
 		super(new Sprite(Propellerjoch.MEDIA_URL.concat("player.png")));
@@ -74,7 +80,7 @@ public class Player extends SpriteObject implements ICollidableWithTiles, IColli
 
 	/**
 	 * Teleporteert de speler naar de checkpoint.
-	 * @param cp De checkpoint waar de speler naar word geteleporteerd.
+	 * @param cp De checkpoint waar de speler naar wordt geteleporteerd.
 	 */
 	public void gaNaarCp(Checkpoint cp) {
 		setX(cp.checkpointX);
@@ -95,7 +101,7 @@ public class Player extends SpriteObject implements ICollidableWithTiles, IColli
 	
 	
 	/**
-	 * Laat de speler vliegen.
+	 * Laat de speler vliegen/zweven.
 	 */
 	private void vliegen() {
 		setGravity(0.3f);
