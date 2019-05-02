@@ -14,13 +14,14 @@ import nl.han.ica.oopg.view.View;
 import processing.core.PApplet;
 import propellerjoch.tiles.FloorTile;
 import propellerjoch.tiles.PlatformTile;
+import propellerjoch.tiles.PowerupTile;
 import propellerjoch.tiles.SpikesTile;
 import nl.han.ica.oopg.objects.Sprite;
 import nl.han.ica.oopg.objects.SpriteObject;
 
 /**
  * @author David van Munster & Hidde Koomen
- * Een spel waar je een parkour moet afleggen door monsters te verslaan.
+ * Een spel waar je een parkour moet afleggen terwijl je monsters verslaat.
  */
 
 public class Propellerjoch extends GameEngine {
@@ -38,7 +39,7 @@ public class Propellerjoch extends GameEngine {
 	private TextObject text;
 	private Checkpoint cp;
 	private Dashboard db;
-
+	
 	protected float spawnX = 200;
 	protected float spawnY = 700;
 	
@@ -70,10 +71,10 @@ public class Propellerjoch extends GameEngine {
 	 * 	Initialiseerd het geluid
 	 */
 	private void initializeSound() {
-		achtergrond = new Sound(this, Propellerjoch.MEDIA_URL.concat("backgroundMusic.mp3"));
+		achtergrond = new Sound(this, MEDIA_URL.concat("backgroundMusic.mp3"));
         achtergrond.loop(-1);
-        dood = new Sound(this, Propellerjoch.MEDIA_URL.concat("death.mp3"));
-        gameover = new Sound(this, Propellerjoch.MEDIA_URL.concat("gameover.mp3"));
+        dood = new Sound(this, MEDIA_URL.concat("death.mp3"));
+        gameover = new Sound(this, MEDIA_URL.concat("gameover.mp3"));
 	}
 
 	/**
@@ -163,28 +164,30 @@ public class Propellerjoch extends GameEngine {
 	 * Initialiseerd de tiles.
 	 */
 	private void initializeTileMap() {
-		Sprite floorSprite = new Sprite(Propellerjoch.MEDIA_URL.concat("platformPack_tile001.png"));
-		Sprite platformSprite = new Sprite(Propellerjoch.MEDIA_URL.concat("platform.png"));
-		Sprite spikesSprite = new Sprite(Propellerjoch.MEDIA_URL.concat("spikes.png"));
+		Sprite floorSprite = new Sprite(MEDIA_URL.concat("platformPack_tile001.png"));
+		Sprite platformSprite = new Sprite(MEDIA_URL.concat("platform.png"));
+		Sprite spikesSprite = new Sprite(MEDIA_URL.concat("spikes.png"));
+		Sprite powerupSprite = new Sprite(MEDIA_URL.concat("powerupBlok.png"));
 		TileType<FloorTile> floorTileType = new TileType<>(FloorTile.class, floorSprite);
 		TileType<PlatformTile> platformTileType = new TileType<>(PlatformTile.class, platformSprite);
 		TileType<SpikesTile> spikesTileType = new TileType<>(SpikesTile.class, spikesSprite);
+		TileType<PowerupTile> powerupTileType = new TileType<>(PowerupTile.class, powerupSprite);
 
-		TileType[] tileTypes = { floorTileType, platformTileType, spikesTileType };
+		TileType[] tileTypes = { floorTileType, platformTileType, spikesTileType, powerupTileType }; // -1 = niks, 0 = gras, 1 = platform, 2 = spikes, 3 = power-up blok
 		int tileSize = 64;
 		int tilesMap[][] = {
 				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
 				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
 				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
 				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
-				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
-				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
-				{ -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
-				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1,  1, -1,  1, -1, -1,  1, -1,  1,  1, -1, -1, -1, -1,  1,  1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, -1,  3, -1, -1, -1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1,  1, -1,  1, -1, -1,  1, -1,  1,  1, -1, -1, -1, -1,  1,  1, -1, -1, -1, -1, -1, },
 				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
 				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
 				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1, -1, -1, },
-				{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
+				{ -1, -1, -1, -1, -1, -1, -1, -1,  0, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
 				{ -1, -1, -1, -1, -1,  0,  0,  0,  0,  2, -1, -1,  2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, },
 				{  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1, -1, -1,  0,  0, -1, -1, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, } };
 		tileMap = new TileMap(tileSize, tileTypes, tilesMap);

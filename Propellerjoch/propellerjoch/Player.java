@@ -2,7 +2,9 @@ package propellerjoch;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import nl.han.ica.oopg.objects.AnimatedSpriteObject;
 import nl.han.ica.oopg.objects.GameObject;
 import nl.han.ica.oopg.objects.Sprite;
 import nl.han.ica.oopg.objects.SpriteObject;
@@ -15,11 +17,14 @@ import processing.core.PVector;
 import propellerjoch.tiles.FloorTile;
 import propellerjoch.tiles.PlatformTile;
 import propellerjoch.tiles.SpikesTile;
+import propellerjoch.tiles.PowerupTile;
 
-public class Player extends SpriteObject implements ICollidableWithTiles, ICollidableWithGameObjects {
+public class Player extends AnimatedSpriteObject implements ICollidableWithTiles, ICollidableWithGameObjects {
 	private Propellerjoch pj;
 	private Checkpoint cp;
+	private Random random;
 	private boolean raaktGrondAan = true;
+	private boolean heeftPowerup = false;
 
 	ArrayList<Toets> toets = new ArrayList<Toets>();
 
@@ -35,8 +40,9 @@ public class Player extends SpriteObject implements ICollidableWithTiles, IColli
 	 * @param cp - Referentie naar de checkpoint class
 	 */
 	public Player(Propellerjoch pj, Checkpoint cp) {
-		// Met `.concat()` plak je 2 strings aan elkaar.
-		super(new Sprite(Propellerjoch.MEDIA_URL.concat("player.png")));
+		// Met `.concat()` plak je 2 strings aan elkaar.			   // huidige frame index, 0 = player, 1 = harnas, 2 = vuurbal
+		super(new Sprite(Propellerjoch.MEDIA_URL.concat("player.png")), 3);
+		random = new Random();
 		this.pj = pj;
 		this.cp = cp;
 
@@ -174,8 +180,33 @@ public class Player extends SpriteObject implements ICollidableWithTiles, IColli
 					e.printStackTrace();
 				}
 			}
+			if (ct.getTile() instanceof PowerupTile) {
+				try {
+					geefRandomPowerup();
+					heeftPowerup = true;
+				} catch (TileNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 
+	}
+
+	private void geefRandomPowerup() {
+		if (heeftPowerup == false) {
+			int powerupType = random.nextInt(3) + 1;
+			if (powerupType == 1) {
+				// Geef de speler de powerup: Harnas
+				System.out.println("Powerup gekregen: Harnas");
+				setCurrentFrameIndex(1);
+			}
+			
+			if (powerupType == 2) {
+				// Geef de speler de powerup: Vuurbal
+				System.out.println("Powerup gekregen: Vuurbal");
+				setCurrentFrameIndex(2);
+			}
+		}
 	}
 
 	@Override
