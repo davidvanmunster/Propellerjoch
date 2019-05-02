@@ -17,7 +17,7 @@ public class Spin extends Monster implements ICollidableWithGameObjects {
 	 * @param speed			- De snelheid van het monster
 	 * @param player		- Referentie naar de speler
 	 */
-	public Spin(Sprite sprite, Propellerjoch pj, float beginPunt, float eindPunt, float speed, Player player) {
+	public Spin(Propellerjoch pj, float beginPunt, float eindPunt, float speed, Player player) {
 		super(new Sprite(Propellerjoch.MEDIA_URL.concat("spin.png")), pj, beginPunt, eindPunt, speed, player);
 		this.pj = pj;
 	}

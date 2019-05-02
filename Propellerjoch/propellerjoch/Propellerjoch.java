@@ -86,21 +86,21 @@ public class Propellerjoch extends GameEngine {
 		addGameObject(prinses, 700, 270);
 		player = new Player(this, cp);
 		addGameObject(player, spawnX, spawnY);
-		spawner = new ZombieSpawner(this, 1, null);
+		spawner = new ZombieSpawner(this, 1);
 		addGameObject(spawner);
 		
 		
 		// Voor monsters : type(null, this, beginPunt, eindPunt, speed, player)
-		zombie = new Zombie(null, this, 750, 1100, 1.5f, player);
+		zombie = new Zombie(this, 750, 1100, 1.5f, player);
 		addGameObject(zombie, 730, 650);
-		zombie = new Zombie(null, this, 1800, 2200, 1.5f, player);
+		zombie = new Zombie(this, 1800, 2200, 1.5f, player);
 		addGameObject(zombie, 1780, 650);
-		zombie = new Zombie(null, this, 1800, 2200, 1.5f, player);
+		zombie = new Zombie(this, 1800, 2200, 1.5f, player);
 		addGameObject(zombie, 2250, 650);
 		
-		spin = new Spin(null, this, 250, 600, 1f, player);
+		spin = new Spin(this, 250, 600, 1f, player);
 		addGameObject(spin, 800, 200);
-		spin = new Spin(null, this, 500, 900, 1f, player);
+		spin = new Spin(this, 500, 900, 1f, player);
 		addGameObject(spin, 1200, 450);
 
 		monsters.add(spin);

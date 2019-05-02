@@ -23,7 +23,7 @@ public class ZombieSpawner extends SpriteObject implements IAlarmListener {
 	 * @param zombiesPerTienSeconden    - Aantal zombies dat per 10 seconden gemaakt moet worden
 	 * @param sprite					- Sprite van de zombie
 	 */
-	public ZombieSpawner(Propellerjoch pj, float zombiesPerTienSeconden, Sprite sprite) {
+	public ZombieSpawner(Propellerjoch pj, float zombiesPerTienSeconden) {
 		super(new Sprite(Propellerjoch.MEDIA_URL.concat("zombie.png")));
 		this.zombiesPerTienSeconden = zombiesPerTienSeconden;
 		this.pj = pj;
@@ -42,7 +42,7 @@ public class ZombieSpawner extends SpriteObject implements IAlarmListener {
 	public void triggerAlarm(String alarmName) {
 		int x = random.nextInt(50) + 1749;
 		float snelheid = (random.nextFloat() * 4) + 0.5f;
-		Zombie z = new Zombie(sprite, pj, 1800, 2650, snelheid, player);
+		Zombie z = new Zombie(pj, 1800, 2650, snelheid, player);
 		pj.addGameObject(z, x, 750);
 		startAlarm();
 	}
