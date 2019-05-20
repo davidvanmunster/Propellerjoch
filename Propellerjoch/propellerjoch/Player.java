@@ -25,6 +25,8 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 	private Random random;
 	private boolean raaktGrondAan = true;
 	private boolean heeftPowerup = false;
+	
+	public boolean schietVuurbal = false;
 
 	ArrayList<Toets> toets = new ArrayList<Toets>();
 
@@ -32,7 +34,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 	Toets keyDown = new Toets(40);
 	Toets keyLeft = new Toets(37);
 	Toets keyRight = new Toets(39);
-	Toets Spacebar = new Toets(33);
+	Toets spacebar = new Toets(33);
 
 	/**
 	 * Constructor
@@ -53,7 +55,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 		toets.add(keyDown);
 		toets.add(keyLeft);
 		toets.add(keyRight);
-		toets.add()
+		toets.add(spacebar);
 	}
 
 	@Override
@@ -69,9 +71,9 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 			setDirectionSpeed(180, speed);
 		} else if (keyLeft.getIngedrukt()) {
 			setDirectionSpeed(270, speed);
-		} else if (keyLeft.getIngedrukt() == false || keyRight.getIngedrukt() == false) {
+		} else if (!keyLeft.getIngedrukt() || !keyRight.getIngedrukt()) {
 			setDirectionSpeed(0, stop);
-		} else if (keyUp.getIngedrukt() == false) {
+		} else if (!keyUp.getIngedrukt()) {
 			if (getGravity() == 0.3f) {
 				setGravity(3f);
 			}
@@ -81,8 +83,9 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 		}
 		
 		// Schiet een vuurbal af wanneer de speler bezit over de Vuurbal-powerup
-		if ()
-		
+		if (spacebar.getIngedrukt()) {
+			schietVuurbal = true;
+		}
 		
 		if (y > 1200) {
 			dood(cp);

@@ -1,14 +1,17 @@
 package propellerjoch;
 
 public class Vuurbal implements Powerup {
+	
+	private Player player;
 
 	public Vuurbal() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public void powerupFunctie() {
-		// TODO Auto-generated method stub
-		
+		if (player.schietVuurbal == true) {
+			
+		}
 	}
 
 }
