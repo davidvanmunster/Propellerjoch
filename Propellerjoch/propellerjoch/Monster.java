@@ -40,15 +40,6 @@ public abstract class Monster extends SpriteObject {
 		this.eindPunt = eindPunt;
 		this.speed = speed;
 	}
-
-	public void update() {	
-		if (x < beginPunt) {
-			setDirectionSpeed(90, speed);
-		}
-		if (x > eindPunt) {
-			setDirectionSpeed(270, speed);
-		}
-	}
 	
 	public void tileCollisionOccurred(List<CollidedTile> collidedTiles) {
 		PVector vector;
@@ -77,4 +68,6 @@ public abstract class Monster extends SpriteObject {
 			}
 		}*/
 	}
+
+	protected abstract void beweeg();
 }

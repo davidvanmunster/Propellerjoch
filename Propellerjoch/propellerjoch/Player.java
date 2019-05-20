@@ -32,6 +32,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 	Toets keyDown = new Toets(40);
 	Toets keyLeft = new Toets(37);
 	Toets keyRight = new Toets(39);
+	Toets Spacebar = new Toets(33);
 
 	/**
 	 * Constructor
@@ -52,6 +53,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 		toets.add(keyDown);
 		toets.add(keyLeft);
 		toets.add(keyRight);
+		toets.add()
 	}
 
 	@Override
@@ -77,6 +79,9 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 		if ((!keyLeft.getIngedrukt() ^ keyRight.getIngedrukt()) && !keyUp.getIngedrukt() && !keyDown.getIngedrukt()) {
 			setDirectionSpeed(0, stop);
 		}
+		
+		// Schiet een vuurbal af wanneer de speler bezit over de Vuurbal-powerup
+		if ()
 		
 		
 		if (y > 1200) {

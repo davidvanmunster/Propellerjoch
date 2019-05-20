@@ -24,4 +24,18 @@ public class Zombie extends Monster implements ICollidableWithTiles, ICollidable
 		setGravity(gravity);
 		this.pj = pj;
 	}
+	
+	public void beweeg() {
+		if (x < beginPunt) {
+			setDirectionSpeed(90, speed);
+		}
+		if (x > eindPunt) {
+			setDirectionSpeed(270, speed);
+		}
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+	}
 }

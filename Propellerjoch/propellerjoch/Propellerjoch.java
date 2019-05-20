@@ -35,6 +35,7 @@ public class Propellerjoch extends GameEngine {
 	private Monster zombie;
 	private Monster spin;
 	private ArrayList<Monster> monsters = new ArrayList<>();
+	private ArrayList<Powerup> powerups = new ArrayList<>();
 	private ZombieSpawner spawner;
 	private TextObject text;
 	private Checkpoint cp;
@@ -53,7 +54,7 @@ public class Propellerjoch extends GameEngine {
 
 	@Override
 	public void setupGame() {
-		int worldWidth = 2880;
+		int worldWidth = 4880;
 		int worldHeight = 1200;
 		
 		initializeSound();
@@ -111,8 +112,12 @@ public class Propellerjoch extends GameEngine {
 	@Override
 	public void update() {
 		for (Monster m : monsters) {
-			m.update();
+			m.beweeg();
 		}
+		for (Powerup p : powerups) {
+			p.powerupFunctie();
+		}
+		
 	}
 
 	/**

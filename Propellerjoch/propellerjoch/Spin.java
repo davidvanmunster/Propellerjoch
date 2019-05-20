@@ -22,12 +22,18 @@ public class Spin extends Monster implements ICollidableWithGameObjects {
 		this.pj = pj;
 	}
 
-	public void update() {	
+	public void beweeg() {	
 		if (y < beginPunt) {
 			setDirectionSpeed(180, speed);
 		}
 		if (y > eindPunt) {
 			setDirectionSpeed(0, speed);
 		}
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 }
