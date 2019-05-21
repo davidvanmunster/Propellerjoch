@@ -34,7 +34,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 	Toets keyDown = new Toets(40);
 	Toets keyLeft = new Toets(37);
 	Toets keyRight = new Toets(39);
-	Toets spacebar = new Toets(33);
+	Toets S = new Toets(83);
 
 	/**
 	 * Constructor
@@ -43,7 +43,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 	 * @param cp - Referentie naar de checkpoint class
 	 */
 	public Player(Propellerjoch pj, Checkpoint cp) {
-		// Met `.concat()` plak je 2 strings aan elkaar.			   // huidige frame index, 0 = player, 1 = harnas, 2 = vuurbal
+		// Met `.concat()` plak je 2 strings aan elkaar.	// huidige frame index, 0 = player, 1 = harnas, 2 = vuurbal
 		super(new Sprite(Propellerjoch.MEDIA_URL.concat("player.png")), 3);
 		random = new Random();
 		this.pj = pj;
@@ -55,7 +55,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 		toets.add(keyDown);
 		toets.add(keyLeft);
 		toets.add(keyRight);
-		toets.add(spacebar);
+		toets.add(S);
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 		}
 		
 		// Schiet een vuurbal af wanneer de speler bezit over de Vuurbal-powerup
-		if (spacebar.getIngedrukt()) {
+		if (S.getIngedrukt()) {
 			schietVuurbal = true;
 		}
 		
@@ -126,9 +126,14 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 	 * @param cp De laatste checkpoint.
 	 */
 	public void dood(Checkpoint cp) {
-		gaNaarCp(cp);
-		pj.dood.rewind();
-		pj.dood.play();
+		if (getCurrentFrameIndex() == 1) {
+			setCurrentFrameIndex(0);
+			// Timer zetten voor 1? seconde voor tijdelijke onsterfelijkheid
+		} else {
+			gaNaarCp(cp);
+			pj.dood.rewind();
+			pj.dood.play();
+		}
 	}
 	
 	/**
@@ -192,6 +197,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 				try {
 					geefRandomPowerup();
 					heeftPowerup = true;
+					
 				} catch (TileNotFoundException e) {
 					e.printStackTrace();
 				}
@@ -202,7 +208,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 
 	private void geefRandomPowerup() {
 		if (heeftPowerup == false) {
-			int powerupType = random.nextInt(3) + 1;
+			int powerupType = random.nextInt(1) + 1;
 			if (powerupType == 1) {
 				// Geef de speler de powerup: Harnas
 				System.out.println("Powerup gekregen: Harnas");

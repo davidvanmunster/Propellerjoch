@@ -54,7 +54,7 @@ public class Propellerjoch extends GameEngine {
 
 	@Override
 	public void setupGame() {
-		int worldWidth = 4880;
+		int worldWidth = 2880;
 		int worldHeight = 1200;
 		
 		initializeSound();
