@@ -117,7 +117,6 @@ public class Propellerjoch extends GameEngine {
 		for (Powerup p : powerups) {
 			p.powerupFunctie();
 		}
-		
 	}
 
 	/**

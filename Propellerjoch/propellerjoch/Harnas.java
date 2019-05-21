@@ -16,7 +16,6 @@ public class Harnas implements Powerup, IAlarmListener {
 
 	@Override
 	public void powerupFunctie() {
-//		if ()
 		startAlarm();
 	}
 	
