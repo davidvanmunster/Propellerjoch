@@ -1,23 +1,32 @@
 package propellerjoch;
 
+import nl.han.ica.oopg.objects.GameObject;
 import nl.han.ica.oopg.objects.Sprite;
 import nl.han.ica.oopg.objects.SpriteObject;
 
 public class Vuurbal extends SpriteObject implements Powerup {
-	
+	Propellerjoch pj;
+	Bal bal;
 	private Player player;
 
-	public Vuurbal(float x, float y) {
+	float x = 300;
+	float y = 300;
+	
+	public Vuurbal(Bal bal, Propellerjoch pj, Player player) {
 		super(new Sprite(Propellerjoch.MEDIA_URL.concat("vuurbal.png")));
-		x = player.getX();
-		y = player.getY();
+		this.player = player;
+		this.pj = pj;
+		this.bal = bal;
 	}
 
 	public void powerupFunctie() {
 		int vuurbalSnelheid = 10;
+		
 		if (player.schietVuurbal == true) {
-			new Vuurbal(x, y);
-			setDirectionSpeed(90, vuurbalSnelheid);
+//			pj.addGameObject(bal, x, y);
+			System.out.println("nigga");
+//			setDirectionSpeed(90, vuurbalSnelheid);
+//			player.schietVuurbal = false;
 		}
 	}
 

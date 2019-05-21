@@ -84,7 +84,9 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 		
 		// Schiet een vuurbal af wanneer de speler bezit over de Vuurbal-powerup
 		if (S.getIngedrukt()) {
-			schietVuurbal = true;
+			schietVuurbal = true;			
+		} else {
+			schietVuurbal = false;
 		}
 		
 		if (y > 1200) {
