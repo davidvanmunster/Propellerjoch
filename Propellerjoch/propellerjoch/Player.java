@@ -23,10 +23,12 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 	private Propellerjoch pj;
 	private Checkpoint cp;
 	private Random random;
+	private Powerup harnas;
 	private boolean raaktGrondAan = true;
 	private boolean heeftPowerup = false;
 	public int laatsteKnop = 90;
 	public boolean schietVuurbal = false;
+	protected boolean onsterfelijkheid = false;
 
 	ArrayList<Toets> toets = new ArrayList<Toets>();
 
@@ -42,12 +44,13 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 	 * @param pj - Referentie naar de wereld
 	 * @param cp - Referentie naar de checkpoint class
 	 */
-	public Player(Propellerjoch pj, Checkpoint cp) {
-		// Met `.concat()` plak je 2 strings aan elkaar.	// huidige frame index, 0 = player, 1 = harnas, 2 = vuurbal
-		super(new Sprite(Propellerjoch.MEDIA_URL.concat("player.png")), 3);
+	public Player(Propellerjoch pj, Checkpoint cp, Powerup harnas) {
+		// Met `.concat()` plak je 2 strings aan elkaar.	// huidige frame index, 0 = player, 1 = harnas, 2 = vuurbal, 3 = onsterfelijk
+		super(new Sprite(Propellerjoch.MEDIA_URL.concat("player.png")), 4);
 		random = new Random();
 		this.pj = pj;
 		this.cp = cp;
+		this.harnas = harnas;
 
 		float gravity = 3f;
 		setGravity(gravity);
@@ -85,7 +88,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 		}
 		
 		// Schiet een vuurbal af wanneer de speler bezit over de Vuurbal-powerup
-		if (S.getIngedrukt()) {
+		if (S.getIngedrukt() && getCurrentFrameIndex() == 2) {
 			schietVuurbal = true;			
 		} else {
 			schietVuurbal = false;
@@ -126,14 +129,15 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 	}
 
 	/**
+	 * Er wordt eerst gecheckt of de speler een harnas draagt, is dit het geval gaat het harnas kapot in plaats van dat de speler sterft.
 	 * Dit gebeurt er als de speler dood gaat.
 	 * @param cp De laatste checkpoint.
 	 */
 	public void dood(Checkpoint cp) {
-		if (getCurrentFrameIndex() == 1) {
-			setCurrentFrameIndex(0);
-			// Timer zetten voor 1? seconde voor tijdelijke onsterfelijkheid
-		} else {
+		if (getCurrentFrameIndex() == 1 && onsterfelijkheid == false) {
+			setCurrentFrameIndex(3);
+			onsterfelijkheid = true;
+		} else if (onsterfelijkheid == false) {
 			gaNaarCp(cp);
 			pj.dood.rewind();
 			pj.dood.play();
@@ -212,7 +216,8 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 
 	private void geefRandomPowerup() {
 		if (heeftPowerup == false) {
-			int powerupType = random.nextInt(1) + 1;
+			int powerupType = random.nextInt(2) + 1;
+			System.out.println(powerupType);
 			if (powerupType == 1) {
 				// Geef de speler de powerup: Harnas
 				System.out.println("Powerup gekregen: Harnas");
@@ -236,7 +241,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 					springen();
 				}
 				else {
-					System.out.println("Speler dood g");
+					System.out.println("Speler dood");
 					dood(cp);
 				}
 			}

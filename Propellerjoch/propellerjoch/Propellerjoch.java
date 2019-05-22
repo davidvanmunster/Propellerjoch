@@ -42,6 +42,7 @@ public class Propellerjoch extends GameEngine {
 	private Dashboard db;
 	protected Bal bal;
 	private Powerup vuurbal;
+	private Powerup harnas;
 	
 	protected boolean balAdded = false;
 	
@@ -89,17 +90,19 @@ public class Propellerjoch extends GameEngine {
 		cp = new Checkpoint(this);
 		addGameObject(cp, 1380, 650);
 		prinses = new Prinses(this);
-		addGameObject(prinses, 700, 270);
-		player = new Player(this, cp);
+		addGameObject(prinses, 567, 145);
+		player = new Player(this, cp, harnas);
 		addGameObject(player, spawnX, spawnY);
 		spawner = new ZombieSpawner(this, 1);
 		addGameObject(spawner);
 		
 		bal = new Bal(null, this);
 		vuurbal = new Vuurbal(bal, this, player);
+		harnas = new Harnas(this, player);
 		powerups.add(vuurbal);
+		powerups.add(harnas);
 		
-		// Voor monsters : type(null, this, beginPunt, eindPunt, speed, player)
+		// Voor monsters : type(this, beginPunt, eindPunt, speed, player)
 		zombie = new Zombie(this, 750, 1100, 1.5f, player);
 		addGameObject(zombie, 730, 650);
 		zombie = new Zombie(this, 1800, 2200, 1.5f, player);
@@ -117,7 +120,7 @@ public class Propellerjoch extends GameEngine {
 		monsters.add(zombie);
 	}
 	
-	int vuurbalSnelheid = 10;
+	int vuurbalSnelheid = 8;
 	public void createBal() {
 		addGameObject(bal, player.getX(), player.getY() + 50);
 		System.out.println(bal.getDirection());

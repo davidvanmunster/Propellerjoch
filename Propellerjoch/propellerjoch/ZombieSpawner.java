@@ -40,7 +40,7 @@ public class ZombieSpawner extends SpriteObject implements IAlarmListener {
 
 	@Override
 	public void triggerAlarm(String alarmName) {
-		int x = random.nextInt(50) + 1749;
+		int x = random.nextInt(50) + 1700;
 		float snelheid = (random.nextFloat() * 4) + 0.5f;
 		Zombie z = new Zombie(pj, 1800, 2650, snelheid, player);
 		pj.addGameObject(z, x, 750);

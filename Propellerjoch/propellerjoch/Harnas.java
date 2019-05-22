@@ -4,19 +4,23 @@ import nl.han.ica.oopg.alarm.Alarm;
 import nl.han.ica.oopg.alarm.IAlarmListener;
 
 public class Harnas implements Powerup, IAlarmListener {
-	
-	public int lengteOnsterfelijkheid = 1;
-	
+	Propellerjoch pj;	
 	private Player player;
 	private Checkpoint cp;
+	
+	public int lengteOnsterfelijkheid = 2;
 
-	public Harnas(int lengteOnsterfelijkheid) {
-		this.lengteOnsterfelijkheid = lengteOnsterfelijkheid;
+	public Harnas(Propellerjoch pj, Player player) {
+		this.pj = pj;
+		this.player = player;
 	}
 
 	@Override
 	public void powerupFunctie() {
-		startAlarm();
+		if (player.onsterfelijkheid == true) {
+			System.out.println("Onsterfelijk!");
+			startAlarm();
+		}
 	}
 	
 	private void startAlarm() {
@@ -27,7 +31,9 @@ public class Harnas implements Powerup, IAlarmListener {
 
 	@Override
 	public void triggerAlarm(String alarmName) {
-		
+		System.out.println("Onsterfelijkheid beëindigd");
+		player.onsterfelijkheid = false;
+		player.setCurrentFrameIndex(0);
 	}
 
 }
