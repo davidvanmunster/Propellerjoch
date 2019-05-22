@@ -55,18 +55,28 @@ public abstract class Monster extends SpriteObject {
 		}
 	}
 	
-	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {/*
+//	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {/*
+//		for (GameObject go: collidedGameObjects) {
+//			if (go instanceof Player) {		
+//				if ((go.getY()+go.getHeight()) <= this.getY()) {
+//					pj.deleteGameObject(this);
+//					player.springen();
+//				}
+//				else {
+//					System.out.println("Speler dood g");
+//				}
+//			}
+//		}*/
+//	}
+	
+	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
 		for (GameObject go: collidedGameObjects) {
-			if (go instanceof Player) {		
-				if ((go.getY()+go.getHeight()) <= this.getY()) {
+			if (go instanceof Bal) {		
 					pj.deleteGameObject(this);
-					player.springen();
-				}
-				else {
-					System.out.println("Speler dood g");
-				}
+					pj.deleteGameObject(pj.bal);
+					pj.balAdded = false;
 			}
-		}*/
+		}
 	}
 
 	protected abstract void beweeg();

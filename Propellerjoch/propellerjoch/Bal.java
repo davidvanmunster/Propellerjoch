@@ -22,14 +22,6 @@ public class Bal extends SpriteObject {
 	}
 
 
-	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
-		for (GameObject go: collidedGameObjects) {
-			if (go instanceof Monster) {		
-					pj.deleteGameObject(go);
-					pj.deleteGameObject(pj.bal);
-					System.out.println("nigga");
-			}
-		}
-	}
+	
 
 }
