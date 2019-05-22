@@ -9,8 +9,8 @@ public class Vuurbal extends SpriteObject implements Powerup {
 	Bal bal;
 	private Player player;
 
-	float x = 300;
-	float y = 300;
+	float x = 200;
+	float y = 700;
 	
 	public Vuurbal(Bal bal, Propellerjoch pj, Player player) {
 		super(new Sprite(Propellerjoch.MEDIA_URL.concat("vuurbal.png")));
@@ -20,13 +20,10 @@ public class Vuurbal extends SpriteObject implements Powerup {
 	}
 
 	public void powerupFunctie() {
-		int vuurbalSnelheid = 10;
 		
-		if (player.schietVuurbal == true) {
-//			pj.addGameObject(bal, x, y);
-			System.out.println("nigga");
-//			setDirectionSpeed(90, vuurbalSnelheid);
-//			player.schietVuurbal = false;
+		
+		if (player.schietVuurbal == true && pj.balAdded == false) {
+			pj.createBal();
 		}
 	}
 

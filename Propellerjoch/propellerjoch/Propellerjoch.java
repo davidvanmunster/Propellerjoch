@@ -40,9 +40,10 @@ public class Propellerjoch extends GameEngine {
 	private TextObject text;
 	private Checkpoint cp;
 	private Dashboard db;
-	private Bal bal;
+	protected Bal bal;
 	private Powerup vuurbal;
 	
+	protected boolean balAdded = false;
 	
 	protected float spawnX = 200;
 	protected float spawnY = 700;
@@ -94,7 +95,7 @@ public class Propellerjoch extends GameEngine {
 		spawner = new ZombieSpawner(this, 1);
 		addGameObject(spawner);
 		
-		bal = new Bal(null, 300, 300);
+		bal = new Bal(null, this);
 		vuurbal = new Vuurbal(bal, this, player);
 		powerups.add(vuurbal);
 		
@@ -114,6 +115,14 @@ public class Propellerjoch extends GameEngine {
 		
 		monsters.add(spin);
 		monsters.add(zombie);
+	}
+	
+	int vuurbalSnelheid = 10;
+	public void createBal() {
+		addGameObject(bal, player.getX(), player.getY() + 50);
+		System.out.println(bal.getDirection());
+		bal.setDirectionSpeed(player.laatsteKnop, vuurbalSnelheid);
+		balAdded = true;
 	}
 	
 	@Override

@@ -1,16 +1,17 @@
 package propellerjoch;
 
+import java.util.List;
+
+import nl.han.ica.oopg.objects.GameObject;
 import nl.han.ica.oopg.objects.Sprite;
 import nl.han.ica.oopg.objects.SpriteObject;
-
+import nl.han.ica.oopg.collision.ICollidableWithGameObjects;
 public class Bal extends SpriteObject {
-	float x;
-	float y;
+	private Propellerjoch pj;
 	
-	public Bal(Sprite sprite, float x, float y) {
+	public Bal(Sprite sprite, Propellerjoch pj) {
 		super(new Sprite(Propellerjoch.MEDIA_URL.concat("vuurbal.png")));
-		this.x = x;
-		this.y = y;
+		this.pj = pj;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -20,6 +21,15 @@ public class Bal extends SpriteObject {
 		
 	}
 
-	
+
+	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
+		for (GameObject go: collidedGameObjects) {
+			if (go instanceof Monster) {		
+					pj.deleteGameObject(go);
+					pj.deleteGameObject(pj.bal);
+					System.out.println("nigga");
+			}
+		}
+	}
 
 }

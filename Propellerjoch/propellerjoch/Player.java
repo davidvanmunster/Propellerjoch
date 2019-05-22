@@ -25,7 +25,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 	private Random random;
 	private boolean raaktGrondAan = true;
 	private boolean heeftPowerup = false;
-	
+	public int laatsteKnop = 90;
 	public boolean schietVuurbal = false;
 
 	ArrayList<Toets> toets = new ArrayList<Toets>();
@@ -67,10 +67,12 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 			springen();
 		} else if (keyRight.getIngedrukt()) {
 			setDirectionSpeed(90, speed);
+			laatsteKnop = 90;
 		} else if (keyDown.getIngedrukt()) {
 			setDirectionSpeed(180, speed);
 		} else if (keyLeft.getIngedrukt()) {
 			setDirectionSpeed(270, speed);
+			laatsteKnop = 270;
 		} else if (!keyLeft.getIngedrukt() || !keyRight.getIngedrukt()) {
 			setDirectionSpeed(0, stop);
 		} else if (!keyUp.getIngedrukt()) {
