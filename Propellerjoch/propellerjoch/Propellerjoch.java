@@ -34,7 +34,7 @@ public class Propellerjoch extends GameEngine {
 	private Prinses prinses;
 	private Monster zombie;
 	private Monster spin;
-	private ArrayList<Monster> monsters = new ArrayList<>();
+	protected ArrayList<Monster> monsters = new ArrayList<>();
 	private ArrayList<Powerup> powerups = new ArrayList<>();
 	private ZombieSpawner spawner;
 	private TextObject text;
@@ -105,19 +105,22 @@ public class Propellerjoch extends GameEngine {
 		// Voor monsters : type(this, beginPunt, eindPunt, speed, player)
 		zombie = new Zombie(this, 750, 1100, 1.5f, player);
 		addGameObject(zombie, 730, 650);
-		zombie = new Zombie(this, 1800, 2200, 1.5f, player);
-		addGameObject(zombie, 1780, 650);
-		zombie = new Zombie(this, 1800, 2200, 1.5f, player);
-		addGameObject(zombie, 2250, 650);
+//		zombie = new Zombie(this, 1800, 2200, 1.5f, player);
+//		addGameObject(zombie, 1780, 650);
+//		zombie = new Zombie(this, 1800, 2200, 1.5f, player);
+//		addGameObject(zombie, 2250, 650);
 		
 		spin = new Spin(this, 250, 600, 1f, player);
 		addGameObject(spin, 800, 200);
-		spin = new Spin(this, 500, 900, 1f, player);
-		addGameObject(spin, 1200, 450);
+//		spin = new Spin(this, 500, 900, 1f, player);
+//		addGameObject(spin, 1200, 450);
 
 		
 		monsters.add(spin);
 		monsters.add(zombie);
+		monsters.add(zombie);
+		monsters.add(zombie);
+		
 	}
 	
 	int vuurbalSnelheid = 8;
