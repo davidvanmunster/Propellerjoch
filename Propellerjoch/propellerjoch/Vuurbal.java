@@ -8,6 +8,7 @@ public class Vuurbal implements Powerup {
 	Propellerjoch pj;
 	Bal bal;
 	private Player player;
+	private int aantalKeerGeschoten = 0;
 
 	float x = 200;
 	float y = 700;
@@ -22,6 +23,11 @@ public class Vuurbal implements Powerup {
 		if (player.schietVuurbal == true && pj.balAdded == false) {
 			pj.createBal();
 			bal.startAlarm();
+			aantalKeerGeschoten++;
+		}
+		if (aantalKeerGeschoten >= 5) {
+			player.setCurrentFrameIndex(0);
+			aantalKeerGeschoten = 0;
 		}
 	}
 
