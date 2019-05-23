@@ -1,8 +1,8 @@
 package propellerjoch;
 
 public class Toets {
-	int keyCode;
-	boolean ingedrukt;
+	private int keyCode;
+	private boolean ingedrukt;
 	
 	/**
 	 * Constructor

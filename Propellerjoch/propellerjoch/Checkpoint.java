@@ -8,7 +8,7 @@ import nl.han.ica.oopg.objects.Sprite;
 import nl.han.ica.oopg.objects.SpriteObject;
 
 public class Checkpoint extends SpriteObject implements ICollidableWithGameObjects {
-	Propellerjoch pj;
+	private Propellerjoch pj;
 	
 	public float checkpointX = 200;
 	public float checkpointY = 700;

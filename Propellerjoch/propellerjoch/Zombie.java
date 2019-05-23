@@ -7,7 +7,8 @@ import nl.han.ica.oopg.objects.Sprite;
 public class Zombie extends Monster implements ICollidableWithTiles, ICollidableWithGameObjects {
 
 	private Propellerjoch pj;
-
+	private int direction = 90;
+	
 	/**
 	 * Constructor
 	 * 
@@ -20,18 +21,18 @@ public class Zombie extends Monster implements ICollidableWithTiles, ICollidable
 	 */
 	public Zombie(Propellerjoch pj, float beginPunt, float eindPunt, float speed, Player player) {
 		super(new Sprite(Propellerjoch.MEDIA_URL.concat("zombie.png")), pj, beginPunt, eindPunt, speed, player);
-		float gravity = 0.15f;
+		float gravity = 2.5f;
 		setGravity(gravity);
 		this.pj = pj;
 	}
 	
 	public void beweeg() {
-		if (x < beginPunt) {
-			setDirectionSpeed(90, speed);
-		}
-		if (x > eindPunt) {
-			setDirectionSpeed(270, speed);
-		}
+		if (x <= beginPunt) {
+			direction = 90;
+		} else if (x >= eindPunt) {
+			direction = 270;
+		} 
+		setDirectionSpeed(direction, speed);
 	}
 
 	@Override

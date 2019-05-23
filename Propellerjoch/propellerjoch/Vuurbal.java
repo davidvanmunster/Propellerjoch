@@ -5,8 +5,8 @@ import nl.han.ica.oopg.objects.Sprite;
 import nl.han.ica.oopg.objects.SpriteObject;
 
 public class Vuurbal implements Powerup {
-	Propellerjoch pj;
-	Bal bal;
+	private Propellerjoch pj;
+	private Bal bal;
 	private Player player;
 	private int aantalKeerGeschoten = 0;
 

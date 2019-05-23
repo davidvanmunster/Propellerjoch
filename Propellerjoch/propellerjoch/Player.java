@@ -24,12 +24,15 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 	private Checkpoint cp;
 	private Random random;
 	private Powerup harnas;
-	private boolean raaktGrondAan = true;
-	private boolean heeftPowerup = false;
+	private float gravity = 3f;
+	
 	public int laatsteKnop = 90;
 	public boolean schietVuurbal = false;
+	
 	protected boolean onsterfelijkheid = false;
-
+	private boolean raaktGrondAan = true;
+	private boolean heeftPowerup = false;
+	
 	ArrayList<Toets> toets = new ArrayList<Toets>();
 
 	Toets keyUp = new Toets(38);
@@ -52,7 +55,6 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 		this.cp = cp;
 		this.harnas = harnas;
 
-		float gravity = 3f;
 		setGravity(gravity);
 		toets.add(keyUp);
 		toets.add(keyDown);
