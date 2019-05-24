@@ -24,10 +24,6 @@ public class Vuurbal implements Powerup {
 			pj.createBal();
 			bal.startAlarm();
 			aantalKeerGeschoten++;
-			System.out.println("x:");
-			System.out.print(player.getX());
-			System.out.print("y:");
-			System.out.print(player.getY());
 		}
 		if (aantalKeerGeschoten >= 5) {
 			player.setCurrentFrameIndex(0);
